@@ -10,4 +10,14 @@ class Order < ApplicationRecord
   def confirm!
     update!(status: "confirmed")
   end
+
+  def ship!
+    raise "Cannot ship unconfirmed order" unless status == "confirmed"
+    update!(status: "shipped", shipped_at: Time.current)
+  end
+
+  def deliver!
+    raise "Cannot deliver unshipped order" unless status == "shipped"
+    update!(status: "delivered")
+  end
 end
