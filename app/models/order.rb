@@ -20,4 +20,12 @@ class Order < ApplicationRecord
     raise "Cannot deliver unshipped order" unless status == "shipped"
     update!(status: "delivered")
   end
+
+  def cancel!(reason: nil)
+    update!(status: "cancelled", notes: reason)
+  end
+
+  def cod?
+    payment_method == "cod"
+  end
 end
