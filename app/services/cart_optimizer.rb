@@ -25,4 +25,13 @@ class CartOptimizer
       { product: product, pharmacy: pharmacy, price: product.price_cents }
     end
   end
+
+  def calculate_absorption(pharmacy, product)
+    ratio = pharmacy.id.to_f / (product.price_cents + 1)
+    ratio > max_absorption ? max_absorption : ratio
+  end
+
+  def max_absorption
+    0.15
+  end
 end
