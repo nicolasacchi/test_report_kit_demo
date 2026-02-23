@@ -34,4 +34,18 @@ class CartOptimizer
   def max_absorption
     0.15
   end
+
+  def apply_discounts(items)
+    items.map do |item|
+      if item[:price] > 5000
+        item.merge(discount: (item[:price] * 0.05).round)
+      else
+        item
+      end
+    end
+  end
+
+  def validate_availability(pharmacy, products)
+    products.all? { |p| p.in_stock? }
+  end
 end
