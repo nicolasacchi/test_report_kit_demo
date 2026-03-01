@@ -32,7 +32,7 @@ class CartOptimizer
   end
 
   def max_absorption
-    0.20
+    0.15
   end
 
   def apply_discounts(items)
