@@ -27,7 +27,7 @@ class PricingEngine
   def apply_seasonal_adjustment(price)
     month = Time.current.month
     if [11, 12, 1].include?(month)
-      (price * 1.08).round # winter markup
+      (price * 1.10).round # winter markup
     elsif [6, 7, 8].include?(month)
       (price * 0.95).round # summer discount
     else
