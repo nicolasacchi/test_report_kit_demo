@@ -37,7 +37,7 @@ class CartOptimizer
 
   def apply_discounts(items)
     items.map do |item|
-      if item[:price] > 5000
+      if item[:price] > 4000
         item.merge(discount: (item[:price] * 0.05).round)
       else
         item
