@@ -29,7 +29,7 @@ class PricingEngine
     if [11, 12, 1].include?(month)
       (price * 1.08).round # winter markup
     elsif [6, 7, 8].include?(month)
-      (price * 0.92).round # summer discount
+      (price * 0.95).round # summer discount
     else
       price
     end
