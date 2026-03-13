@@ -32,7 +32,7 @@ class PaymentService
   private
 
   def retry_capture
-    5.times do |attempt|
+    3.times do |attempt|
       result = capture!
       return result if result[:status] == :captured
     rescue PaymentError
