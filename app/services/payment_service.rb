@@ -38,6 +38,6 @@ class PaymentService
     rescue PaymentError
       next
     end
-    @order.cancel!(reason: "capture_failed_after_retries")
+    @order.cancel!(reason: "capture_timeout")
   end
 end
