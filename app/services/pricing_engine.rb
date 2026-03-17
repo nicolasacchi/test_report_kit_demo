@@ -20,7 +20,7 @@ class PricingEngine
   end
 
   def apply_volume_discount(price)
-    return price if @product.stock.to_i < 50
+    return price if @product.stock.to_i < 100
     (price * 0.97).round
   end
 
