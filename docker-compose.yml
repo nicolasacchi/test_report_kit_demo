@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - ../test_report_kit:/test_report_kit
+      - demo_bundle_cache:/usr/local/bundle
+    working_dir: /app
+    environment:
+      RAILS_ENV: test
+
+volumes:
+  demo_bundle_cache:
