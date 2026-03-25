@@ -1,0 +1,77 @@
+name: Test Report
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+
+    - run: bundle exec rails db:create db:migrate
+      env:
+        RAILS_ENV: test
+
+    - name: Run tests with reporting
+      env:
+        RAILS_ENV: test
+        TEST_REPORT_BRANCH: ${{ github.head_ref || github.ref_name }}
+        TEST_REPORT_SHA: ${{ github.sha }}
+      run: bundle exec rake test_report:full
+
+    - name: Upload report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: tmp/test_report/
+
+    - name: PR comment
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let s;
+          try { s = JSON.parse(fs.readFileSync('tmp/test_report/summary.json','utf8')); }
+          catch(e) { return; }
+          const d = s.diff_coverage_passed ? '✅' : '❌';
+          const body = [
+            '## 🧪 Test Report',
+            '',
+            `${d} **Diff Coverage: ${s.diff_coverage_pct??'N/A'}%** (threshold: ${s.diff_coverage_threshold}%) — ${s.diff_covered_lines??0}/${s.diff_executable_lines??0} changed lines`,
+            '',
+            '| Metric | Value |',
+            '|--------|-------|',
+            `| Coverage | ${s.coverage_pct}% |`,
+            `| Duration | ${s.duration_formatted} |`,
+            `| Examples | ${s.total_examples} |`,
+            '',
+            '📊 Full report in artifacts'
+          ].join('\n');
+          const {data:comments} = await github.rest.issues.listComments({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number});
+          const ex = comments.find(c=>c.body?.includes('🧪 Test Report'));
+          const p = {owner:context.repo.owner,repo:context.repo.repo,body};
+          if(ex) await github.rest.issues.updateComment({...p,comment_id:ex.id});
+          else await github.rest.issues.createComment({...p,issue_number:context.issue.number});
+
+    - name: Diff coverage gate
+      if: github.event_name == 'pull_request'
+      run: |
+        P=$(jq -r '.diff_coverage_passed' tmp/test_report/summary.json)
+        [ "$P" = "false" ] && echo "::error::Below threshold" && exit 1 || echo "Pass"

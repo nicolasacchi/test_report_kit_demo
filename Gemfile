@@ -13,7 +13,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "test_report_kit", path: "/test_report_kit"
+  gem "test_report_kit", github: "nicolasacchi/test_report_kit", branch: "main"
   gem "simplecov", require: false
   gem "simplecov-json", require: false
   gem "test-prof", "~> 1.0"

@@ -31,3 +31,9 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Coverage output
+/coverage/
+
+# Gemfile.lock (gem path varies by environment)
+Gemfile.lock
+
