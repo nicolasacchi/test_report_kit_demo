@@ -24,3 +24,4 @@ end
 # ux
 # perf
 # factory
+# resource
