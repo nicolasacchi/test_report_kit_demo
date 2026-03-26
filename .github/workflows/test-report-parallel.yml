@@ -89,6 +89,9 @@ jobs:
       with:
         path: artifacts/
 
+    - name: List downloaded artifacts
+      run: find artifacts/ -type f | sort | head -50
+
     - name: Merge and generate report
       env:
         RAILS_ENV: test
