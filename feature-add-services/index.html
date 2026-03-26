@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test_report_kit_demo test report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-deep: #0b0e14;
+    --bg-surface: #111620;
+    --bg-card: #161c28;
+    --bg-card-hover: #1a2233;
+    --bg-elevated: #1e2738;
+    --border: #232d3f;
+    --border-subtle: #1a2230;
+    --text-primary: #e2e8f0;
+    --text-secondary: #8892a4;
+    --text-muted: #556177;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59, 130, 246, 0.15);
+    --green: #22c55e;
+    --green-dim: rgba(34, 197, 94, 0.12);
+    --yellow: #eab308;
+    --yellow-dim: rgba(234, 179, 8, 0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239, 68, 68, 0.12);
+    --orange: #f97316;
+    --purple: #a78bfa;
+    --cyan: #06b6d4;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  .header { padding: 24px 0 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-family: var(--mono); font-size: 15px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-primary); }
+  .logo span { color: var(--accent); }
+
+  .badge { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; }
+  .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .badge-pass { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.2); }
+  .badge-pass::before { background: var(--green); }
+  .badge-fail { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.2); }
+  .badge-fail::before { background: var(--red); }
+
+  .header-meta { display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+  .header-meta code { color: var(--text-secondary); background: var(--bg-elevated); padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin: 24px 0; }
+  .card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px 24px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--border); }
+  .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 8px; }
+  .card-value { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
+  .card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 6px; font-family: var(--mono); }
+  .card-delta { font-size: 12px; font-weight: 600; font-family: var(--mono); display: inline-flex; align-items: center; gap: 2px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+  .delta-up { color: var(--green); background: var(--green-dim); }
+  .delta-down { color: var(--red); background: var(--red-dim); }
+  .card-glow { position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; filter: blur(50px); opacity: 0.15; pointer-events: none; }
+
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .tab { padding: 12px 24px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; user-select: none; letter-spacing: 0.2px; }
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .table-wrap { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
+  .table-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .table-filter { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 6px; outline: none; width: 260px; transition: border-color 0.2s; }
+  .table-filter:focus { border-color: var(--accent); }
+  .table-filter::placeholder { color: var(--text-muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 16px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); cursor: pointer; white-space: nowrap; user-select: none; position: sticky; top: 0; }
+  th:hover { color: var(--text-secondary); }
+  th.sorted { color: var(--accent); }
+  th .sort-arrow { font-size: 9px; margin-left: 4px; opacity: 0.5; }
+  th.sorted .sort-arrow { opacity: 1; }
+  td { padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg-card-hover); }
+
+  .file-path { font-family: var(--mono); font-size: 12px; color: var(--text-primary); max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cov-bar { display: flex; align-items: center; gap: 10px; }
+  .cov-bar-track { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .cov-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s ease; }
+  .cov-pct { font-family: var(--mono); font-size: 12px; font-weight: 600; min-width: 42px; text-align: right; }
+  .risk-score { font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+  .num { font-family: var(--mono); font-size: 12px; }
+
+  .time-bar { display: flex; height: 20px; border-radius: 4px; overflow: hidden; min-width: 200px; }
+  .time-bar-before { background: var(--red); opacity: 0.7; }
+  .time-bar-let { background: var(--yellow); opacity: 0.7; }
+  .time-bar-example { background: var(--green); opacity: 0.7; }
+  .time-legend { display: flex; gap: 16px; margin: 12px 0 20px; font-size: 11px; color: var(--text-muted); }
+  .time-legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 4px; }
+
+  .factory-tree { font-family: var(--mono); font-size: 12px; line-height: 2; padding: 16px 20px; background: var(--bg-surface); border-radius: 8px; margin: 12px 0; border: 1px solid var(--border-subtle); }
+  .factory-tree .indent { padding-left: 24px; color: var(--text-secondary); }
+  .factory-tree .indent-2 { padding-left: 48px; color: var(--text-muted); }
+  .factory-tree .factory-name { color: var(--cyan); font-weight: 600; }
+  .factory-tree .factory-count { color: var(--text-muted); }
+  .factory-tree .arrow { color: var(--text-muted); margin-right: 4px; }
+
+  .insight-section { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+  .insight-header { padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 10px; }
+  .insight-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .insight-title { font-size: 14px; font-weight: 700; }
+  .insight-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-left: auto; background: var(--bg-elevated); padding: 2px 10px; border-radius: 4px; }
+  .section-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; max-width: 700px; }
+  .suggestion { padding: 12px 20px; border-bottom: 1px solid var(--border-subtle); font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+  .suggestion:last-child { border-bottom: none; }
+  .suggestion code { font-family: var(--mono); background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; font-size: 11px; color: var(--cyan); }
+
+  .empty-state { padding: 48px 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+  .toggle-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; cursor: pointer; user-select: none; }
+  .toggle-row input { accent-color: var(--accent); }
+
+  .diff-file-header { padding: 12px 20px 8px; border-bottom: 1px solid var(--border-subtle); }
+  .diff-file-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .diff-badge { font-size: 11px; font-family: var(--mono); padding: 2px 8px; border-radius: 4px; }
+  .diff-line { display: flex; border-bottom: 1px solid var(--border-subtle); font-family: var(--mono); font-size: 12px; line-height: 1.9; }
+  .diff-line-num { width: 52px; text-align: right; padding: 2px 12px 2px 0; flex-shrink: 0; }
+  .diff-line-code { padding: 2px 16px; }
+  .diff-gap { height: 8px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="logo"><span>&rarr;</span> test_report_kit_demo<span>/</span>test report</div>
+            <span class="badge badge-pass">all passing</span>
+          </div>
+    <div class="header-meta">
+      <span>mar 26, 2026 · 11:39 utc</span>
+      <span>branch <code>feature/add-services</code></span>
+      <span>sha <code>2492082</code></span>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards">
+  
+  <div class="card" style="border-color: rgba(239, 68, 68, 0.3);">
+    <div class="card-glow" style="background: var(--red);"></div>
+    <div class="card-label">Diff Coverage</div>
+        <div class="card-value" style="color: var(--yellow);">
+      70.1%
+    </div>
+    <div class="card-sub">96/137 changed lines &middot; below 90%</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--yellow);"></div>
+    <div class="card-label">Coverage</div>
+        <div class="card-value" style="color: var(--yellow);">
+      77.0%
+    </div>
+    <div class="card-sub">branch: 43.4% &middot; threshold: 80%</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--accent);"></div>
+    <div class="card-label">Suite Duration</div>
+        <div class="card-value" style="color: var(--text-primary);">0s</div>
+    <div class="card-sub">40 examples &middot; 0 pending</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--red);"></div>
+    <div class="card-label">Slowest Test</div>
+        <div class="card-value" style="color: var(--red);">0.03s</div>
+    <div class="card-sub">InventorySyncJob#perform syncs products for active </div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--orange);"></div>
+    <div class="card-label">Factory Creates</div>
+        <div class="card-value" style="color: var(--orange);">67</div>
+    <div class="card-sub">4 unique factories</div>
+      </div>
+</div>
+
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-tab="diff">Diff Coverage</div>
+    <div class="tab" data-tab="coverage">Coverage</div>
+    <div class="tab" data-tab="performance">Performance</div>
+    <div class="tab" data-tab="factories">Factory Health</div>
+    <div class="tab" data-tab="insights">Insights</div>
+  </div>
+
+  <!-- TAB CONTENT -->
+  <div class="tab-content active" id="tab-diff">
+    
+<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+  <div style="font-size: 48px; font-weight: 800; color: var(--yellow); letter-spacing: -2px;">
+    70.1%
+  </div>
+  <div>
+    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary);">of changed lines are covered</div>
+    <div style="font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-top: 4px;">
+      96 covered &middot; 41 uncovered &middot; 137 executable &middot; 240 total changed
+    </div>
+    <div style="font-size: 11px; color: var(--text-muted); font-family: var(--mono); margin-top: 2px;">
+      compared against <code style="background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; color: var(--text-secondary);">main</code>
+      at <code style="background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; color: var(--text-secondary);">d58e5eb</code>
+    </div>
+  </div>
+  <div style="margin-left: auto;">
+        <span class="badge badge-fail">below 90% threshold</span>
+      </div>
+</div>
+
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Per-File Diff Coverage</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>File</th>
+        <th data-sort>Diff Cov</th>
+        <th data-sort>Changed</th>
+        <th data-sort>Covered</th>
+        <th data-sort>Uncovered</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:29.2%; background: var(--red);"></div></div>
+            <span class="cov-pct" style="color: var(--red);">29.2%</span>
+          </div>
+        </td>
+        <td><span class="num">37</span></td>
+        <td><span class="num" style="color: var(--green);">7</span></td>
+        <td><span class="num" style="color: var(--red); font-weight: 700;">17</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:60.0%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">60.0%</span>
+          </div>
+        </td>
+        <td><span class="num">43</span></td>
+        <td><span class="num" style="color: var(--green);">15</span></td>
+        <td><span class="num" style="color: var(--red);">10</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/order.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:70.0%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">70.0%</span>
+          </div>
+        </td>
+        <td><span class="num">38</span></td>
+        <td><span class="num" style="color: var(--green);">14</span></td>
+        <td><span class="num" style="color: var(--red);">6</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/cart_optimizer.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/cart_optimizer.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:71.4%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">71.4%</span>
+          </div>
+        </td>
+        <td><span class="num">51</span></td>
+        <td><span class="num" style="color: var(--green);">20</span></td>
+        <td><span class="num" style="color: var(--red);">8</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/jobs/inventory_sync_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/inventory_sync_job.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num">20</span></td>
+        <td><span class="num" style="color: var(--green);">11</span></td>
+        <td><span class="num" style="color: var(--text-muted);">0</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/order_item.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order_item.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num">8</span></td>
+        <td><span class="num" style="color: var(--green);">4</span></td>
+        <td><span class="num" style="color: var(--text-muted);">0</span></td>
+      </tr>
+            <tr>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/shipping_calculator.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/shipping_calculator.rb</a></span></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num">43</span></td>
+        <td><span class="num" style="color: var(--green);">25</span></td>
+        <td><span class="num" style="color: var(--text-muted);">0</span></td>
+      </tr>
+          </tbody>
+  </table>
+</div>
+
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Uncovered Changed Lines</div>
+  </div>
+    <div class="diff-file-section">
+    <div class="diff-file-header">
+      <div class="diff-file-toggle">
+        <span class="diff-arrow" style="color: var(--text-muted); font-size: 12px;">&#9660;</span>
+        <span class="file-path" style="max-width: none;">app/services/pricing_engine.rb</span>
+        <span class="diff-badge" style="color: var(--red); background: var(--red-dim);">
+          17 uncovered lines
+        </span>
+      </div>
+    </div>
+    <div class="diff-file-content">
+                                  <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">2</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> initialize(product, pharmacy = <span style="color: #c678dd;">nil</span>)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">3</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    @product = product</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">4</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    @pharmacy = pharmacy</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">5</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">7</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">8</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    base = @product.price_cents</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">9</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    base = apply_pharmacy_markup(base) <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> @pharmacy</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">10</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    base = apply_volume_discount(base)</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">11</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    base = apply_seasonal_adjustment(base)</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">12</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    { final_price: base, currency: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;<span style="color: var(--cyan);">EUR</span>&quot;</span> }</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">13</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">17</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_pharmacy_markup(price)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">18</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    markup = @pharmacy.auto_accept_orders? ? 1.05 : 1.08</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">19</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    (price * markup).round</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">20</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">22</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_volume_discount(price)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">23</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> price <span style="color: #c678dd;">if</span> @product.stock.to_i &lt; 100</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">24</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    (price * 0.96).round</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">25</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">27</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_seasonal_adjustment(price)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">28</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    month = <span style="color: var(--cyan);">Time</span>.current.month</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">29</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> [11, 12, 1].include?(month)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">30</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      (price * 1.08).round <span style="color: var(--text-muted);"># winter markup</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">31</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">elsif</span> [6, 7, 8].include?(month)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">32</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      (price * 0.95).round <span style="color: var(--text-muted);"># summer discount</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">33</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">33</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">34</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      price</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">35</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                            </div>
+  </div>
+    <div class="diff-file-section">
+    <div class="diff-file-header" style="border-top: 1px solid var(--border);">
+      <div class="diff-file-toggle">
+        <span class="diff-arrow" style="color: var(--text-muted); font-size: 12px;">&#9660;</span>
+        <span class="file-path" style="max-width: none;">app/services/payment_service.rb</span>
+        <span class="diff-badge" style="color: var(--red); background: var(--red-dim);">
+          10 uncovered lines
+        </span>
+      </div>
+    </div>
+    <div class="diff-file-content">
+                                  <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">19</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> refund!</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">20</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Cannot</span> refund pending order&quot;</span> <span style="color: #c678dd;">if</span> @order.status == <span style="color: #98c379;">&quot;pending&quot;</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">21</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    { status: <span style="color: <span style="color: var(--text-muted);">#98c379;">:refunded</span>, amount: @order.total_cents }</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">22</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">24</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> handle_timeout</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">25</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> @order.cod?</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">26</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      @order.cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;payment_timeout&quot;</span>)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">27</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">27</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">28</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      retry_capture</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">29</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">34</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> retry_capture</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">35</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    3.times <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |attempt|</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">36</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      result = capture!</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">37</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> result <span style="color: #c678dd;">if</span> result[<span style="color: #98c379;">:status</span>] == <span style="color: #98c379;">:captured</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">38</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">rescue</span> <span style="color: var(--cyan);">PaymentError</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">38</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">rescue</span> <span style="color: var(--cyan);">PaymentError</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">39</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">next</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">40</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">40</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">41</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    @order.cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;capture_failed_after_retries&quot;</span>)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">42</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                            </div>
+  </div>
+    <div class="diff-file-section">
+    <div class="diff-file-header" style="border-top: 1px solid var(--border);">
+      <div class="diff-file-toggle">
+        <span class="diff-arrow" style="color: var(--text-muted); font-size: 12px;">&#9660;</span>
+        <span class="file-path" style="max-width: none;">app/models/order.rb</span>
+        <span class="diff-badge" style="color: var(--red); background: var(--red-dim);">
+          6 uncovered lines
+        </span>
+      </div>
+    </div>
+    <div class="diff-file-content">
+                                  <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">24</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> cancel!(reason: <span style="color: #c678dd;">nil</span>)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">25</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    update!(status: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cancelled&quot;</span>, notes: reason)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">26</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">28</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> cod?</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">29</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    payment_method == <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cod&quot;</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">30</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">36</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> awaiting_cod_confirmation?</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">37</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    cod? &amp;&amp; status == <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;pending&quot;</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">38</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">40</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> handle_cod_timeout</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">41</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> <span style="color: #c678dd;">unless</span> payment_method == <span style="color: #98c379;">&quot;cod&quot;</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">42</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cod_timeout&quot;</span>) <span style="color: #c678dd;">if</span> awaiting_cod_confirmation?</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">43</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    notify_cs_team(<span style="color: <span style="color: var(--text-muted);">#98c379;">:cod_timeout_alert</span>)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">44</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                            </div>
+  </div>
+    <div class="diff-file-section">
+    <div class="diff-file-header" style="border-top: 1px solid var(--border);">
+      <div class="diff-file-toggle">
+        <span class="diff-arrow" style="color: var(--text-muted); font-size: 12px;">&#9660;</span>
+        <span class="file-path" style="max-width: none;">app/services/cart_optimizer.rb</span>
+        <span class="diff-badge" style="color: var(--red); background: var(--red-dim);">
+          8 uncovered lines
+        </span>
+      </div>
+    </div>
+    <div class="diff-file-content">
+                                  <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">29</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate_absorption(pharmacy, product)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">30</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    ratio = pharmacy.id.to_f / (product.price_cents + 1)</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">31</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    ratio &gt; max_absorption ? max_absorption : ratio</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">32</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">34</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> max_absorption</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">35</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    0.15</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">36</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">38</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_discounts(items)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">39</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    items.map <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |item|</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">40</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> item[<span style="color: #98c379;">:price</span>] &gt; 4000</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">41</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">        item.merge(discount: (item[<span style="color: <span style="color: var(--text-muted);">#98c379;">:price</span>] * 0.05).round)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">42</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">42</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">43</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">        item</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">44</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                                      <div class="diff-gap"></div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">48</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> validate_availability(pharmacy, products)</span></div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(239, 68, 68, 0.06);">
+            <div class="diff-line-num" style="color: var(--red); border-right: 3px solid var(--red); font-weight: 600;">49</div>
+            <div class="diff-line-code" style="color: var(--text-primary);">    products.all? { |p| p.in_stock? }</div>
+          </div>
+                                      <div class="diff-line" style="background: rgba(34, 197, 94, 0.04);">
+            <div class="diff-line-num" style="color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3);">50</div>
+            <div class="diff-line-code" style="color: var(--text-secondary);">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+          </div>
+                            </div>
+  </div>
+  </div>
+
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px;">
+  <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 18px;">
+    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600;">files changed</div>
+    <div style="font-size: 24px; font-weight: 800; color: var(--text-primary); margin-top: 4px;">7</div>
+  </div>
+  <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 18px;">
+    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600;">100% covered</div>
+    <div style="font-size: 24px; font-weight: 800; color: var(--green); margin-top: 4px;">3</div>
+  </div>
+  <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 18px;">
+    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600;">partially covered</div>
+    <div style="font-size: 24px; font-weight: 800; color: var(--yellow); margin-top: 4px;">4</div>
+  </div>
+  <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 18px;">
+    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600;">not loaded by tests</div>
+    <div style="font-size: 24px; font-weight: 800; color: var(--red); margin-top: 4px;">0</div>
+  </div>
+</div>
+
+
+  </div>
+  <div class="tab-content" id="tab-coverage">
+    <label class="toggle-row">
+  <input type="checkbox" id="hide-full-cov" checked>
+  hide files with 100% coverage (8 files hidden)
+</label>
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">File Coverage Breakdown</div>
+    <input type="text" class="table-filter" placeholder="filter files... (e.g. models, services)">
+  </div>
+  <div style="max-height: 600px; overflow-y: auto;">
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>File</th>
+        <th data-sort>Line Cov</th>
+        <th data-sort>Branch Cov</th>
+        <th data-sort>Uncovered</th>
+        <th data-sort>Churn (90d)</th>
+        <th data-sort>Risk</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr data-cov-pct="29.2">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:29.2%; background: var(--red);"></div></div>
+            <span class="cov-pct" style="color: var(--red);">29.2%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--red);">0.0%</span></td>
+        <td><span class="num">17</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">71</span></td>
+      </tr>
+            <tr data-cov-pct="78.6">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/order.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:78.6%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">78.6%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--red);">37.5%</span></td>
+        <td><span class="num">6</span></td>
+        <td><span class="num">2</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">43</span></td>
+      </tr>
+            <tr data-cov-pct="60.0">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:60.0%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">60.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--red);">35.7%</span></td>
+        <td><span class="num">10</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">40</span></td>
+      </tr>
+            <tr data-cov-pct="71.4">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/cart_optimizer.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/cart_optimizer.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:71.4%; background: var(--yellow);"></div></div>
+            <span class="cov-pct" style="color: var(--yellow);">71.4%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--red);">33.3%</span></td>
+        <td><span class="num">8</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">29</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/controllers/application_controller.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/controllers/application_controller.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--text-muted);">—</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/jobs/application_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/application_job.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--text-muted);">—</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/jobs/inventory_sync_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/inventory_sync_job.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--green);">100.0%</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/application_record.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/application_record.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--text-muted);">—</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/order_item.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order_item.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--text-muted);">—</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">2</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/pharmacy.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/pharmacy.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--text-muted);">—</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/models/product.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/product.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--green);">100.0%</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+            <tr data-cov-pct="100.0" style="display:none;">
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/app/services/shipping_calculator.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/shipping_calculator.rb</a></div></td>
+        <td>
+          <div class="cov-bar">
+            <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
+            <span class="cov-pct" style="color: var(--green);">100.0%</span>
+          </div>
+        </td>
+        <td><span class="num" style="color: var(--green);">81.8%</span></td>
+        <td><span class="num">0</span></td>
+        <td><span class="num">1</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">0</span></td>
+      </tr>
+          </tbody>
+  </table>
+  </div>
+</div>
+
+  </div>
+  <div class="tab-content" id="tab-performance">
+    
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Slowest Examples (top 20)</div>
+  </div>
+  <div style="max-height: 400px; overflow-y: auto;">
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>Example</th>
+        <th data-sort>File</th>
+        <th data-sort>Duration</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform syncs products for active pharmacy</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/jobs/inventory_sync_job_spec.rb</a>:13</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#recalculate_total! sums order item subtotals</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_spec.rb#L51" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:51</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate adds weight surcharge for large orders</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/shipping_calculator_spec.rb</a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem#subtotal_cents multiplies quantity by unit price</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_item_spec.rb</a>:5</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.02s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform skips inactive pharmacies</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/jobs/inventory_sync_job_spec.rb</a>:17</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#ship! ships confirmed orders</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#deliver! delivers shipped orders</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_spec.rb#L40" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:40</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize returns the cheapest pharmacy</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/cart_optimizer_spec.rb</a>:6</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#confirm! sets status to confirmed</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_spec.rb#L18" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:18</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem callback recalculates order total on save</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_item_spec.rb</a>:13</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize raises when no pharmacies available</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/cart_optimizer_spec.rb</a>:16</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! decrements stock</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/product_spec.rb#L69" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:69</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .active returns only active products</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/product_spec.rb#L32" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:32</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .by_category filters by category</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/product_spec.rb#L44" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:44</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .in_stock returns products with stock &gt; 0</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/product_spec.rb#L38" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:38</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#ship! raises on non-confirmed orders</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/order_spec.rb#L33" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:33</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product validations requires unique minsan_code</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/product_spec.rb#L19" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:19</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Pharmacy validations requires unique code</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/pharmacy_spec.rb#L14" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/pharmacy_spec.rb</a>:14</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Pharmacy validations is expected to be valid</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/models/pharmacy_spec.rb#L7" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/pharmacy_spec.rb</a>:7</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate returns standard shipping cost</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/2492082/./spec/services/shipping_calculator_spec.rb#L7" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/shipping_calculator_spec.rb</a>:7</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+          </tbody>
+  </table>
+  </div>
+</div>
+
+
+
+  </div>
+  <div class="tab-content" id="tab-factories">
+    
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Factory Usage Ranking</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>Factory</th>
+        <th data-sort>Creates</th>
+        <th data-sort>Top-Level</th>
+        <th data-sort>Cascade Ratio</th>
+        <th data-sort>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">:product</span></td>
+        <td><span class="num" style="color: var(--text-secondary); font-weight: 700;">35</span></td>
+        <td><span class="num">24</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">1.5x</span></td>
+        <td><span class="num">0.1s</span></td>
+      </tr>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">:order</span></td>
+        <td><span class="num" style="color: var(--text-secondary); font-weight: 700;">15</span></td>
+        <td><span class="num">14</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">1.1x</span></td>
+        <td><span class="num">0.0s</span></td>
+      </tr>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">:order_item</span></td>
+        <td><span class="num" style="color: var(--text-secondary); font-weight: 700;">11</span></td>
+        <td><span class="num">11</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">1.0x</span></td>
+        <td><span class="num">0.1s</span></td>
+      </tr>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">:pharmacy</span></td>
+        <td><span class="num" style="color: var(--text-secondary); font-weight: 700;">6</span></td>
+        <td><span class="num">6</span></td>
+        <td><span class="risk-score" style="background: var(--green-dim); color: var(--green);">1.0x</span></td>
+        <td><span class="num">0.0s</span></td>
+      </tr>
+          </tbody>
+  </table>
+</div>
+
+
+
+
+  </div>
+  <div class="tab-content" id="tab-insights">
+    
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--red-dim); color: var(--red);">&#128293;</div>
+    <div class="insight-title">High-Risk Files</div>
+    <div class="insight-count">high churn + low coverage</div>
+  </div>
+    <div class="empty-state">No high-risk files detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--yellow-dim); color: var(--yellow);">&#9201;&#65039;</div>
+    <div class="insight-title">Over-Tested Files</div>
+    <div class="insight-count">high coverage + very slow</div>
+  </div>
+    <div class="empty-state">No over-tested files detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--purple); color: #fff;">&#127917;</div>
+    <div class="insight-title">False Security</div>
+    <div class="insight-count">&gt;70% time in hooks</div>
+  </div>
+    <div class="empty-state">No false security issues detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--red-dim); color: var(--red);">&#9888;&#65039;</div>
+    <div class="insight-title">Untested Hot Paths</div>
+    <div class="insight-count">active development + low coverage</div>
+  </div>
+    <div class="empty-state">No untested hot paths detected.</div>
+  </div>
+
+  </div>
+
+</div>
+
+<script type="application/json" id="report-data">{"diff_coverage":{"base_branch":"main","base_sha":"d58e5eb","head_sha":"2492082","total_changed_lines":240,"executable_changed_lines":137,"covered_changed_lines":96,"uncovered_changed_lines":41,"diff_coverage_pct":70.1,"threshold":90,"passed":false,"files":[{"path":"app/services/pricing_engine.rb","changed_lines":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37],"covered_lines":[1,2,7,15,17,22,27],"uncovered_lines":[3,4,8,9,10,11,12,18,19,23,24,28,29,30,31,32,34],"non_executable_lines":[5,6,13,14,16,20,21,25,26,33,35,36,37],"diff_coverage_pct":29.2,"not_loaded":false,"uncovered_content":[{"type":"context","line":2,"content":"  def initialize(product, pharmacy = nil)"},{"type":"uncovered","line":3,"content":"    @product = product"},{"type":"uncovered","line":4,"content":"    @pharmacy = pharmacy"},{"type":"context","line":5,"content":"  end"},{"type":"gap"},{"type":"context","line":7,"content":"  def calculate"},{"type":"uncovered","line":8,"content":"    base = @product.price_cents"},{"type":"uncovered","line":9,"content":"    base = apply_pharmacy_markup(base) if @pharmacy"},{"type":"uncovered","line":10,"content":"    base = apply_volume_discount(base)"},{"type":"uncovered","line":11,"content":"    base = apply_seasonal_adjustment(base)"},{"type":"uncovered","line":12,"content":"    { final_price: base, currency: \"EUR\" }"},{"type":"context","line":13,"content":"  end"},{"type":"gap"},{"type":"context","line":17,"content":"  def apply_pharmacy_markup(price)"},{"type":"uncovered","line":18,"content":"    markup = @pharmacy.auto_accept_orders? ? 1.05 : 1.08"},{"type":"uncovered","line":19,"content":"    (price * markup).round"},{"type":"context","line":20,"content":"  end"},{"type":"gap"},{"type":"context","line":22,"content":"  def apply_volume_discount(price)"},{"type":"uncovered","line":23,"content":"    return price if @product.stock.to_i \u003c 100"},{"type":"uncovered","line":24,"content":"    (price * 0.96).round"},{"type":"context","line":25,"content":"  end"},{"type":"gap"},{"type":"context","line":27,"content":"  def apply_seasonal_adjustment(price)"},{"type":"uncovered","line":28,"content":"    month = Time.current.month"},{"type":"uncovered","line":29,"content":"    if [11, 12, 1].include?(month)"},{"type":"uncovered","line":30,"content":"      (price * 1.08).round # winter markup"},{"type":"uncovered","line":31,"content":"    elsif [6, 7, 8].include?(month)"},{"type":"uncovered","line":32,"content":"      (price * 0.95).round # summer discount"},{"type":"context","line":33,"content":"    else"},{"type":"gap"},{"type":"context","line":33,"content":"    else"},{"type":"uncovered","line":34,"content":"      price"},{"type":"context","line":35,"content":"    end"}]},{"path":"app/services/payment_service.rb","changed_lines":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],"covered_lines":[1,2,4,5,8,9,10,11,14,15,16,19,24,32,34],"uncovered_lines":[20,21,25,26,28,35,36,37,39,41],"non_executable_lines":[3,6,7,12,13,17,18,22,23,27,29,30,31,33,38,40,42,43],"diff_coverage_pct":60.0,"not_loaded":false,"uncovered_content":[{"type":"context","line":19,"content":"  def refund!"},{"type":"uncovered","line":20,"content":"    raise PaymentError, \"Cannot refund pending order\" if @order.status == \"pending\""},{"type":"uncovered","line":21,"content":"    { status: :refunded, amount: @order.total_cents }"},{"type":"context","line":22,"content":"  end"},{"type":"gap"},{"type":"context","line":24,"content":"  def handle_timeout"},{"type":"uncovered","line":25,"content":"    if @order.cod?"},{"type":"uncovered","line":26,"content":"      @order.cancel!(reason: \"payment_timeout\")"},{"type":"context","line":27,"content":"    else"},{"type":"gap"},{"type":"context","line":27,"content":"    else"},{"type":"uncovered","line":28,"content":"      retry_capture"},{"type":"context","line":29,"content":"    end"},{"type":"gap"},{"type":"context","line":34,"content":"  def retry_capture"},{"type":"uncovered","line":35,"content":"    3.times do |attempt|"},{"type":"uncovered","line":36,"content":"      result = capture!"},{"type":"uncovered","line":37,"content":"      return result if result[:status] == :captured"},{"type":"context","line":38,"content":"    rescue PaymentError"},{"type":"gap"},{"type":"context","line":38,"content":"    rescue PaymentError"},{"type":"uncovered","line":39,"content":"      next"},{"type":"context","line":40,"content":"    end"},{"type":"gap"},{"type":"context","line":40,"content":"    end"},{"type":"uncovered","line":41,"content":"    @order.cancel!(reason: \"capture_failed_after_retries\")"},{"type":"context","line":42,"content":"  end"}]},{"path":"app/models/order.rb","changed_lines":[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"covered_lines":[14,15,16,19,20,21,24,28,32,33,36,40,46,48],"uncovered_lines":[25,29,37,41,42,43],"non_executable_lines":[13,17,18,22,23,26,27,30,31,34,35,38,39,44,45,47,49,50],"diff_coverage_pct":70.0,"not_loaded":false,"uncovered_content":[{"type":"context","line":24,"content":"  def cancel!(reason: nil)"},{"type":"uncovered","line":25,"content":"    update!(status: \"cancelled\", notes: reason)"},{"type":"context","line":26,"content":"  end"},{"type":"gap"},{"type":"context","line":28,"content":"  def cod?"},{"type":"uncovered","line":29,"content":"    payment_method == \"cod\""},{"type":"context","line":30,"content":"  end"},{"type":"gap"},{"type":"context","line":36,"content":"  def awaiting_cod_confirmation?"},{"type":"uncovered","line":37,"content":"    cod? \u0026\u0026 status == \"pending\""},{"type":"context","line":38,"content":"  end"},{"type":"gap"},{"type":"context","line":40,"content":"  def handle_cod_timeout"},{"type":"uncovered","line":41,"content":"    return unless payment_method == \"cod\""},{"type":"uncovered","line":42,"content":"    cancel!(reason: \"cod_timeout\") if awaiting_cod_confirmation?"},{"type":"uncovered","line":43,"content":"    notify_cs_team(:cod_timeout_alert)"},{"type":"context","line":44,"content":"  end"}]},{"path":"app/services/cart_optimizer.rb","changed_lines":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],"covered_lines":[1,2,4,5,6,9,10,11,13,14,17,19,20,23,24,25,29,34,38,48],"uncovered_lines":[30,31,35,39,40,41,43,49],"non_executable_lines":[3,7,8,12,15,16,18,21,22,26,27,28,32,33,36,37,42,44,45,46,47,50,51],"diff_coverage_pct":71.4,"not_loaded":false,"uncovered_content":[{"type":"context","line":29,"content":"  def calculate_absorption(pharmacy, product)"},{"type":"uncovered","line":30,"content":"    ratio = pharmacy.id.to_f / (product.price_cents + 1)"},{"type":"uncovered","line":31,"content":"    ratio \u003e max_absorption ? max_absorption : ratio"},{"type":"context","line":32,"content":"  end"},{"type":"gap"},{"type":"context","line":34,"content":"  def max_absorption"},{"type":"uncovered","line":35,"content":"    0.15"},{"type":"context","line":36,"content":"  end"},{"type":"gap"},{"type":"context","line":38,"content":"  def apply_discounts(items)"},{"type":"uncovered","line":39,"content":"    items.map do |item|"},{"type":"uncovered","line":40,"content":"      if item[:price] \u003e 4000"},{"type":"uncovered","line":41,"content":"        item.merge(discount: (item[:price] * 0.05).round)"},{"type":"context","line":42,"content":"      else"},{"type":"gap"},{"type":"context","line":42,"content":"      else"},{"type":"uncovered","line":43,"content":"        item"},{"type":"context","line":44,"content":"      end"},{"type":"gap"},{"type":"context","line":48,"content":"  def validate_availability(pharmacy, products)"},{"type":"uncovered","line":49,"content":"    products.all? { |p| p.in_stock? }"},{"type":"context","line":50,"content":"  end"}]},{"path":"app/jobs/inventory_sync_job.rb","changed_lines":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"covered_lines":[1,2,4,5,6,8,9,10,14,16,18],"uncovered_lines":[],"non_executable_lines":[3,7,11,12,13,15,17,19,20],"diff_coverage_pct":100.0,"not_loaded":false,"uncovered_content":[]},{"path":"app/models/order_item.rb","changed_lines":[8,9,13,14,15,16,17,18],"covered_lines":[8,14,16,17],"uncovered_lines":[],"non_executable_lines":[9,13,15,18],"diff_coverage_pct":100.0,"not_loaded":false,"uncovered_content":[]},{"path":"app/services/shipping_calculator.rb","changed_lines":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],"covered_lines":[1,2,3,4,6,7,10,11,13,14,15,16,19,22,24,25,28,30,31,34,35,36,39,40,41],"uncovered_lines":[],"non_executable_lines":[5,8,9,12,17,18,20,21,23,26,27,29,32,33,37,38,42,43],"diff_coverage_pct":100.0,"not_loaded":false,"uncovered_content":[]}]},"file_coverage":[{"path":"app/services/pricing_engine.rb","total_lines":24,"covered_lines":7,"missed_lines":17,"coverage_pct":29.2,"branch_coverage_pct":0.0,"churn":1,"risk_score":71},{"path":"app/models/order.rb","total_lines":28,"covered_lines":22,"missed_lines":6,"coverage_pct":78.6,"branch_coverage_pct":37.5,"churn":2,"risk_score":43},{"path":"app/services/payment_service.rb","total_lines":25,"covered_lines":15,"missed_lines":10,"coverage_pct":60.0,"branch_coverage_pct":35.7,"churn":1,"risk_score":40},{"path":"app/services/cart_optimizer.rb","total_lines":28,"covered_lines":20,"missed_lines":8,"coverage_pct":71.4,"branch_coverage_pct":33.3,"churn":1,"risk_score":29},{"path":"app/controllers/application_controller.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/application_job.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/inventory_sync_job.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/models/application_record.rb","total_lines":2,"covered_lines":2,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/order_item.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":2,"risk_score":0},{"path":"app/models/pharmacy.rb","total_lines":7,"covered_lines":7,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/product.rb","total_lines":15,"covered_lines":15,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/services/shipping_calculator.rb","total_lines":25,"covered_lines":25,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":81.8,"churn":1,"risk_score":0}],"factory_health":{"total_count":67,"total_top_level_count":55,"total_time":"00:00.163","total_uniq_factories":4,"stats":[{"name":"product","total_count":35,"top_level_count":24,"cascade_ratio":1.5,"total_time":0.08001983600000528,"top_level_time":0.05636190500000282},{"name":"order","total_count":15,"top_level_count":14,"cascade_ratio":1.1,"total_time":0.03441869799998898,"top_level_time":0.027646255999989933},{"name":"order_item","total_count":11,"top_level_count":11,"cascade_ratio":1.0,"total_time":0.06549476800000775,"top_level_time":0.06549476800000775},{"name":"pharmacy","total_count":6,"top_level_count":6,"cascade_ratio":1.0,"total_time":0.013511429999994107,"top_level_time":0.013511429999994107}],"suggestions":[]},"insights":{"high_risk":[],"over_tested":[],"false_security":[],"untested_hot_paths":[]}}</script>
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    tab.classList.add('active');
+    const target = document.getElementById('tab-' + tab.dataset.tab);
+    if (target) target.classList.add('active');
+  });
+});
+
+// Table sorting
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', function() {
+    const table = this.closest('table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const idx = Array.from(this.parentNode.children).indexOf(this);
+    const asc = !this.classList.contains('sorted-asc');
+    this.parentNode.querySelectorAll('th').forEach(h => h.classList.remove('sorted', 'sorted-asc', 'sorted-desc'));
+    this.classList.add('sorted', asc ? 'sorted-asc' : 'sorted-desc');
+    rows.sort((a, b) => {
+      const aVal = a.children[idx]?.textContent.trim() || '';
+      const bVal = b.children[idx]?.textContent.trim() || '';
+      const aNum = parseFloat(aVal.replace(/[^0-9.\-]/g, ''));
+      const bNum = parseFloat(bVal.replace(/[^0-9.\-]/g, ''));
+      if (!isNaN(aNum) && !isNaN(bNum)) return asc ? aNum - bNum : bNum - aNum;
+      return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    rows.forEach(row => tbody.appendChild(row));
+  });
+});
+
+// File filter
+document.querySelectorAll('.table-filter').forEach(input => {
+  input.addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    const table = this.closest('.table-wrap').querySelector('tbody');
+    if (!table) return;
+    table.querySelectorAll('tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+    });
+  });
+});
+
+// Toggle 100% coverage files
+const hideFullCov = document.getElementById('hide-full-cov');
+if (hideFullCov) {
+  hideFullCov.addEventListener('change', function() {
+    document.querySelectorAll('[data-cov-pct]').forEach(row => {
+      if (parseFloat(row.dataset.covPct) >= 100) {
+        row.style.display = this.checked ? 'none' : '';
+      }
+    });
+  });
+}
+
+// Diff file expand/collapse
+document.querySelectorAll('.diff-file-toggle').forEach(toggle => {
+  toggle.addEventListener('click', function() {
+    const content = this.closest('.diff-file-section').querySelector('.diff-file-content');
+    const arrow = this.querySelector('.diff-arrow');
+    if (content) {
+      const hidden = content.style.display === 'none';
+      content.style.display = hidden ? '' : 'none';
+      if (arrow) arrow.textContent = hidden ? '\u25BC' : '\u25B6';
+    }
+  });
+});
+</script>
+
+</body>
+</html>

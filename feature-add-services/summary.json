@@ -1,0 +1,89 @@
+{
+  "coverage_pct": 77.0,
+  "coverage_delta": null,
+  "branch_coverage_pct": 43.4,
+  "diff_coverage_pct": 70.1,
+  "diff_coverage_passed": false,
+  "diff_coverage_threshold": 90,
+  "diff_changed_lines": 240,
+  "diff_executable_lines": 137,
+  "diff_covered_lines": 96,
+  "diff_uncovered_lines": 41,
+  "diff_uncovered_files": [
+    {
+      "file": "app/services/pricing_engine.rb",
+      "diff_coverage_pct": 29.2,
+      "uncovered_count": 17
+    },
+    {
+      "file": "app/services/payment_service.rb",
+      "diff_coverage_pct": 60.0,
+      "uncovered_count": 10
+    },
+    {
+      "file": "app/models/order.rb",
+      "diff_coverage_pct": 70.0,
+      "uncovered_count": 6
+    },
+    {
+      "file": "app/services/cart_optimizer.rb",
+      "diff_coverage_pct": 71.4,
+      "uncovered_count": 8
+    }
+  ],
+  "duration_seconds": 0.239163385,
+  "duration_formatted": "0s",
+  "total_examples": 40,
+  "failed_examples": 0,
+  "pending_examples": 0,
+  "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
+  "slowest_test_duration": 0.03,
+  "slowest_tests": [
+    {
+      "description": "InventorySyncJob#perform syncs products for active pharmacy",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "duration": 0.03
+    },
+    {
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:51",
+      "duration": 0.03
+    },
+    {
+      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
+      "file": "./spec/services/shipping_calculator_spec.rb:26",
+      "duration": 0.03
+    },
+    {
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.02
+    },
+    {
+      "description": "InventorySyncJob#perform skips inactive pharmacies",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:17",
+      "duration": 0.01
+    }
+  ],
+  "total_factory_creates": 67,
+  "top_risks": [
+    {
+      "file": "app/services/pricing_engine.rb",
+      "coverage": 29.2,
+      "churn": 1
+    },
+    {
+      "file": "app/models/order.rb",
+      "coverage": 78.6,
+      "churn": 2
+    },
+    {
+      "file": "app/services/payment_service.rb",
+      "coverage": 60.0,
+      "churn": 1
+    }
+  ],
+  "generated_at": "2026-03-26T11:39:15+00:00",
+  "branch": "feature/add-services",
+  "sha": "249208215c5db0ce71d372175dfe25c578aeead3"
+}
