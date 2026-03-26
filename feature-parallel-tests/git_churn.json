@@ -1,9 +1,9 @@
 {
   "days": 90,
   "files": {
+    "Gemfile": 10,
     ".github/workflows/test-report-parallel.yml": 5,
     "README.md": 2,
-    "Gemfile": 9,
     ".github/workflows/test-report.yml": 2,
     "app/services/payment_service.rb": 6,
     ".dockerignore": 1,
