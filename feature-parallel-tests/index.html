@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test_report_kit_demo test report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-deep: #0b0e14;
+    --bg-surface: #111620;
+    --bg-card: #161c28;
+    --bg-card-hover: #1a2233;
+    --bg-elevated: #1e2738;
+    --border: #232d3f;
+    --border-subtle: #1a2230;
+    --text-primary: #e2e8f0;
+    --text-secondary: #8892a4;
+    --text-muted: #556177;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59, 130, 246, 0.15);
+    --green: #22c55e;
+    --green-dim: rgba(34, 197, 94, 0.12);
+    --yellow: #eab308;
+    --yellow-dim: rgba(234, 179, 8, 0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239, 68, 68, 0.12);
+    --orange: #f97316;
+    --purple: #a78bfa;
+    --cyan: #06b6d4;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  .header { padding: 24px 0 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-family: var(--mono); font-size: 15px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-primary); }
+  .logo span { color: var(--accent); }
+
+  .badge { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; }
+  .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .badge-pass { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.2); }
+  .badge-pass::before { background: var(--green); }
+  .badge-fail { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.2); }
+  .badge-fail::before { background: var(--red); }
+
+  .header-meta { display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+  .header-meta code { color: var(--text-secondary); background: var(--bg-elevated); padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin: 24px 0; }
+  .card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px 24px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--border); }
+  .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 8px; }
+  .card-value { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
+  .card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 6px; font-family: var(--mono); }
+  .card-delta { font-size: 12px; font-weight: 600; font-family: var(--mono); display: inline-flex; align-items: center; gap: 2px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+  .delta-up { color: var(--green); background: var(--green-dim); }
+  .delta-down { color: var(--red); background: var(--red-dim); }
+  .card-glow { position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; filter: blur(50px); opacity: 0.15; pointer-events: none; }
+
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .tab { padding: 12px 24px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; user-select: none; letter-spacing: 0.2px; }
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .table-wrap { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
+  .table-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .table-filter { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 6px; outline: none; width: 260px; transition: border-color 0.2s; }
+  .table-filter:focus { border-color: var(--accent); }
+  .table-filter::placeholder { color: var(--text-muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 16px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); cursor: pointer; white-space: nowrap; user-select: none; position: sticky; top: 0; }
+  th:hover { color: var(--text-secondary); }
+  th.sorted { color: var(--accent); }
+  th .sort-arrow { font-size: 9px; margin-left: 4px; opacity: 0.5; }
+  th.sorted .sort-arrow { opacity: 1; }
+  td { padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg-card-hover); }
+
+  .file-path { font-family: var(--mono); font-size: 12px; color: var(--text-primary); max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cov-bar { display: flex; align-items: center; gap: 10px; }
+  .cov-bar-track { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .cov-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s ease; }
+  .cov-pct { font-family: var(--mono); font-size: 12px; font-weight: 600; min-width: 42px; text-align: right; }
+  .risk-score { font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+  .num { font-family: var(--mono); font-size: 12px; }
+
+  .time-bar { display: flex; height: 20px; border-radius: 4px; overflow: hidden; min-width: 200px; }
+  .time-bar-before { background: var(--red); opacity: 0.7; }
+  .time-bar-let { background: var(--yellow); opacity: 0.7; }
+  .time-bar-example { background: var(--green); opacity: 0.7; }
+  .time-legend { display: flex; gap: 16px; margin: 12px 0 20px; font-size: 11px; color: var(--text-muted); }
+  .time-legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 4px; }
+
+  .factory-tree { font-family: var(--mono); font-size: 12px; line-height: 2; padding: 16px 20px; background: var(--bg-surface); border-radius: 8px; margin: 12px 0; border: 1px solid var(--border-subtle); }
+  .factory-tree .indent { padding-left: 24px; color: var(--text-secondary); }
+  .factory-tree .indent-2 { padding-left: 48px; color: var(--text-muted); }
+  .factory-tree .factory-name { color: var(--cyan); font-weight: 600; }
+  .factory-tree .factory-count { color: var(--text-muted); }
+  .factory-tree .arrow { color: var(--text-muted); margin-right: 4px; }
+
+  .insight-section { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+  .insight-header { padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 10px; }
+  .insight-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .insight-title { font-size: 14px; font-weight: 700; }
+  .insight-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-left: auto; background: var(--bg-elevated); padding: 2px 10px; border-radius: 4px; }
+  .section-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; max-width: 700px; }
+  .suggestion { padding: 12px 20px; border-bottom: 1px solid var(--border-subtle); font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+  .suggestion:last-child { border-bottom: none; }
+  .suggestion code { font-family: var(--mono); background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; font-size: 11px; color: var(--cyan); }
+
+  .empty-state { padding: 48px 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+  .toggle-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; cursor: pointer; user-select: none; }
+  .toggle-row input { accent-color: var(--accent); }
+
+  .diff-file-header { padding: 12px 20px 8px; border-bottom: 1px solid var(--border-subtle); }
+  .diff-file-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .diff-badge { font-size: 11px; font-family: var(--mono); padding: 2px 8px; border-radius: 4px; }
+  .diff-line { display: flex; border-bottom: 1px solid var(--border-subtle); font-family: var(--mono); font-size: 12px; line-height: 1.9; }
+  .diff-line-num { width: 52px; text-align: right; padding: 2px 12px 2px 0; flex-shrink: 0; }
+  .diff-line-code { padding: 2px 16px; }
+  .diff-gap { height: 8px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); }
+
+  .file-viewer { max-height: 500px; overflow-y: auto; }
+  .cov-line { display: flex; font-family: var(--mono); font-size: 12px; line-height: 1.8; border-bottom: 1px solid var(--border-subtle); }
+  .cov-line-num { display: block; width: 44px; text-align: right; padding: 1px 8px 1px 0; flex-shrink: 0; user-select: none; text-decoration: none; color: inherit; font: inherit; }
+  a.cov-line-num:hover { text-decoration: underline; }
+  .cov-line-hits { width: 40px; text-align: right; padding: 1px 8px 1px 0; flex-shrink: 0; color: var(--text-muted); font-size: 10px; }
+  .cov-line-code { padding: 1px 16px; white-space: pre; overflow-x: auto; flex: 1; }
+  .cov-line-covered { background: rgba(34, 197, 94, 0.04); }
+  .cov-line-covered .cov-line-num { color: var(--text-muted); border-right: 3px solid rgba(34, 197, 94, 0.3); }
+  .cov-line-covered .cov-line-hits { color: var(--green); }
+  .cov-line-uncovered { background: rgba(239, 68, 68, 0.06); }
+  .cov-line-uncovered .cov-line-num { color: var(--red); border-right: 3px solid var(--red); font-weight: 600; }
+  .cov-line-uncovered .cov-line-hits { color: var(--red); font-weight: 600; }
+  .cov-line-none .cov-line-num { color: var(--text-muted); border-right: 3px solid transparent; }
+  .cov-file-row { cursor: pointer; }
+  .cov-file-detail td { padding: 0 !important; }
+  .gh-icon { margin-left: 6px; color: var(--text-muted); opacity: 0.4; transition: opacity 0.2s; }
+  .gh-icon:hover { opacity: 1; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="logo"><span>&rarr;</span> test_report_kit_demo<span>/</span>test report</div>
+            <span class="badge badge-pass">all passing</span>
+          </div>
+    <div class="header-meta">
+      <span>mar 26, 2026 · 15:26 utc</span>
+      <span>branch <code>feature/parallel-tests</code></span>
+      <span>sha <code>0620ed1</code></span>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards">
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--green);"></div>
+    <div class="card-label">Diff Coverage</div>
+        <div class="card-value" style="color: var(--text-muted);">N/A</div>
+    <div class="card-sub">no diff available</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--accent);"></div>
+    <div class="card-label">Coverage</div>
+        <div class="card-value" style="color: var(--text-muted);">N/A</div>
+    <div class="card-sub">no coverage data</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--accent);"></div>
+    <div class="card-label">Suite Duration</div>
+        <div class="card-value" style="color: var(--text-primary);">0s</div>
+    <div class="card-sub">40 examples &middot; 0 pending</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--red);"></div>
+    <div class="card-label">Slowest Test</div>
+        <div class="card-value" style="color: var(--red);">0.07s</div>
+    <div class="card-sub">CartOptimizer#optimize returns the cheapest pharmac</div>
+      </div>
+
+  
+  <div class="card">
+    <div class="card-glow" style="background: var(--orange);"></div>
+    <div class="card-label">Factory Creates</div>
+        <div class="card-value" style="color: var(--text-muted);">N/A</div>
+    <div class="card-sub">no factory data</div>
+      </div>
+</div>
+
+
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-tab="diff">Diff Coverage</div>
+        <div class="tab" data-tab="coverage">Coverage</div>
+    <div class="tab" data-tab="performance">Performance</div>
+    <div class="tab" data-tab="factories">Factory Health</div>
+    <div class="tab" data-tab="insights">Insights</div>
+        <div class="tab" data-tab="parallel">Parallel <span style="font-family: var(--mono); font-size: 11px; background: var(--accent-glow); color: var(--accent); padding: 1px 6px; border-radius: 4px; margin-left: 4px;">2</span></div>
+      </div>
+
+  <!-- TAB CONTENT -->
+  <div class="tab-content active" id="tab-diff">
+    <div class="empty-state">
+  Diff coverage is not available. This report was either generated on the base branch or git diff could not be computed.
+</div>
+
+  </div>
+    <div class="tab-content" id="tab-coverage">
+    <div class="empty-state">No coverage data available. Run tests with SimpleCov enabled.</div>
+
+  </div>
+  <div class="tab-content" id="tab-performance">
+    
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Test Duration Distribution</div>
+    <div style="font-size: 11px; color: var(--text-muted); font-family: var(--mono);">
+            40 examples &middot; 0s total
+          </div>
+  </div>
+  <div style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;"><0.01s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 100%; height: 100%; background: var(--green); opacity: 0.7; border-radius: 3px; min-width: 2px;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">34</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">0.01–0.05s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 12%; height: 100%; background: var(--green); opacity: 0.7; border-radius: 3px; min-width: 2px;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">4</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">0.05–0.1s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 6%; height: 100%; background: var(--yellow); opacity: 0.7; border-radius: 3px; min-width: 2px;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">2</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">0.1–0.5s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 0%; height: 100%; background: var(--yellow); opacity: 0.7; border-radius: 3px; min-width: 0;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">0</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">0.5–1s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 0%; height: 100%; background: var(--orange); opacity: 0.7; border-radius: 3px; min-width: 0;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">0</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+      <div style="width: 80px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">>1s</div>
+      <div style="flex: 1; height: 18px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden;">
+        <div style="width: 0%; height: 100%; background: var(--red); opacity: 0.7; border-radius: 3px; min-width: 0;"></div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">0</div>
+    </div>
+      </div>
+</div>
+
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Time by Spec File</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>File</th>
+        <th data-sort>Total Time</th>
+        <th data-sort>Examples</th>
+        <th data-sort>Avg Time</th>
+        <th>Slowest Example</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+        <td><span class="file-path">spec/services/cart_optimizer_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.073s</span></td>
+        <td><span class="num">2</span></td>
+        <td><span class="num">0.036s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">CartOptimizer#optimize returns the cheapest pharmacy (0.066s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/models/order_item_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.069s</span></td>
+        <td><span class="num">2</span></td>
+        <td><span class="num">0.035s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">OrderItem#subtotal_cents multiplies quantity by unit price (0.061s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/services/shipping_calculator_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.042s</span></td>
+        <td><span class="num">5</span></td>
+        <td><span class="num">0.008s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ShippingCalculator#calculate adds weight surcharge for large  (0.031s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.03s</span></td>
+        <td><span class="num">13</span></td>
+        <td><span class="num">0.002s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Product#reserve! decrements stock (0.005s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.029s</span></td>
+        <td><span class="num">7</span></td>
+        <td><span class="num">0.004s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Order#recalculate_total! sums order item subtotals (0.012s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/jobs/inventory_sync_job_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.024s</span></td>
+        <td><span class="num">2</span></td>
+        <td><span class="num">0.012s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">InventorySyncJob#perform syncs products for active pharmacy (0.012s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/models/pharmacy_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.012s</span></td>
+        <td><span class="num">6</span></td>
+        <td><span class="num">0.002s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Pharmacy validations is expected to be valid (0.006s)</td>
+      </tr>
+            <tr>
+        <td><span class="file-path">spec/services/payment_service_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></td>
+        <td><span class="num" style="font-weight: 700;">0.012s</span></td>
+        <td><span class="num">3</span></td>
+        <td><span class="num">0.004s</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">PaymentService#authorize! authorizes a valid order (0.008s)</td>
+      </tr>
+          </tbody>
+  </table>
+</div>
+
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Slowest Examples (top 20)</div>
+    <span style="font-size: 11px; color: var(--text-muted);">click a test to view source</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>Example</th>
+        <th data-sort>File</th>
+        <th data-sort>Duration</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+                  <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize returns the cheapest pharmacy</td>
+        <td><span class="file-path">spec/services/cart_optimizer_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:6</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.07s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" class="cov-line-num">6</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;returns the cheapest pharmacy&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L7" target="_blank" rel="noopener" class="cov-line-num">7</a>
+                                        <div class="cov-line-code">      <span style="color: var(--text-muted);"># Heavy factory usage</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L8" target="_blank" rel="noopener" class="cov-line-num">8</a>
+                                        <div class="cov-line-code">      products = create_list(<span style="color: #98c379;">:product</span>, 3)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L9" target="_blank" rel="noopener" class="cov-line-num">9</a>
+                                        <div class="cov-line-code">      pharmacies = create_list(<span style="color: #98c379;">:pharmacy</span>, 2)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L10" target="_blank" rel="noopener" class="cov-line-num">10</a>
+                                        <div class="cov-line-code"></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L11" target="_blank" rel="noopener" class="cov-line-num">11</a>
+                                        <div class="cov-line-code">      result = described_<span style="color: #c678dd;">class</span>.new(products, pharmacies).optimize</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L12" target="_blank" rel="noopener" class="cov-line-num">12</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:pharmacy</span>]).to be_a(<span style="color: var(--cyan);">Pharmacy</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L13" target="_blank" rel="noopener" class="cov-line-num">13</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:items</span>]).to be_an(<span style="color: var(--cyan);">Array</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L14" target="_blank" rel="noopener" class="cov-line-num">14</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem#subtotal_cents multiplies quantity by unit price</td>
+        <td><span class="file-path">spec/models/order_item_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:5</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.06s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" class="cov-line-num">5</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;multiplies quantity by unit price&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L6" target="_blank" rel="noopener" class="cov-line-num">6</a>
+                                        <div class="cov-line-code">      <span style="color: var(--text-muted);"># Deliberately using create (heavy factory usage)</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L7" target="_blank" rel="noopener" class="cov-line-num">7</a>
+                                        <div class="cov-line-code">      item = create(<span style="color: #98c379;">:order_item</span>, quantity: 3, unit_price_cents: 1500)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L8" target="_blank" rel="noopener" class="cov-line-num">8</a>
+                                        <div class="cov-line-code">      expect(item.subtotal_cents).to eq(4500)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L9" target="_blank" rel="noopener" class="cov-line-num">9</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate adds weight surcharge for large orders</td>
+        <td><span class="file-path">spec/services/shipping_calculator_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" class="cov-line-num">26</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;adds weight surcharge for large orders&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L27" target="_blank" rel="noopener" class="cov-line-num">27</a>
+                                        <div class="cov-line-code">      small_order = create(<span style="color: #98c379;">:order</span>, total_cents: 2000)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L28" target="_blank" rel="noopener" class="cov-line-num">28</a>
+                                        <div class="cov-line-code">      7.times { create(<span style="color: #98c379;">:order_item</span>, order: small_order, quantity: 1, unit_price_cents: 200) }</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L29" target="_blank" rel="noopener" class="cov-line-num">29</a>
+                                        <div class="cov-line-code">      small_order.update_column(<span style="color: #98c379;">:total_cents</span>, 2000) <span style="color: var(--text-muted);"># keep below free threshold</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L30" target="_blank" rel="noopener" class="cov-line-num">30</a>
+                                        <div class="cov-line-code">      result = described_<span style="color: #c678dd;">class</span>.new(small_order).calculate(method: <span style="color: #98c379;">:standard</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L31" target="_blank" rel="noopener" class="cov-line-num">31</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:cost</span>]).to be &gt; 499</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L32" target="_blank" rel="noopener" class="cov-line-num">32</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform syncs products for active pharmacy</td>
+        <td><span class="file-path">spec/jobs/inventory_sync_job_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:13</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" class="cov-line-num">13</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;syncs products for active pharmacy&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L14" target="_blank" rel="noopener" class="cov-line-num">14</a>
+                                        <div class="cov-line-code">      expect { described_<span style="color: #c678dd;">class</span>.perform_now(pharmacy.id) }.not_to raise_error</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L15" target="_blank" rel="noopener" class="cov-line-num">15</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Order#recalculate_total! sums order item subtotals</td>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L51" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:51</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L51" target="_blank" rel="noopener" class="cov-line-num">51</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;sums order item subtotals&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L52" target="_blank" rel="noopener" class="cov-line-num">52</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L53" target="_blank" rel="noopener" class="cov-line-num">53</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:order_item</span>, order: order, quantity: 2, unit_price_cents: 1000)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L54" target="_blank" rel="noopener" class="cov-line-num">54</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:order_item</span>, order: order, quantity: 1, unit_price_cents: 500)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L55" target="_blank" rel="noopener" class="cov-line-num">55</a>
+                                        <div class="cov-line-code">      order.reload.recalculate_total!</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L56" target="_blank" rel="noopener" class="cov-line-num">56</a>
+                                        <div class="cov-line-code">      expect(order.total_cents).to eq(2500)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L57" target="_blank" rel="noopener" class="cov-line-num">57</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L51" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform skips inactive pharmacies</td>
+        <td><span class="file-path">spec/jobs/inventory_sync_job_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:17</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" class="cov-line-num">17</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;skips inactive pharmacies&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L18" target="_blank" rel="noopener" class="cov-line-num">18</a>
+                                        <div class="cov-line-code">      inactive = create(<span style="color: #98c379;">:pharmacy</span>, active: <span style="color: #c678dd;">false</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L19" target="_blank" rel="noopener" class="cov-line-num">19</a>
+                                        <div class="cov-line-code">      <span style="color: var(--text-muted);"># Should return early</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L20" target="_blank" rel="noopener" class="cov-line-num">20</a>
+                                        <div class="cov-line-code">      expect { described_<span style="color: #c678dd;">class</span>.perform_now(inactive.id) }.not_to raise_error</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L21" target="_blank" rel="noopener" class="cov-line-num">21</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">PaymentService#authorize! authorizes a valid order</td>
+        <td><span class="file-path">spec/services/payment_service_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L5" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:5</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L5" target="_blank" rel="noopener" class="cov-line-num">5</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;authorizes a valid order&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L6" target="_blank" rel="noopener" class="cov-line-num">6</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>, total_cents: 5000)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L7" target="_blank" rel="noopener" class="cov-line-num">7</a>
+                                        <div class="cov-line-code">      result = described_<span style="color: #c678dd;">class</span>.new(order).authorize!</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L8" target="_blank" rel="noopener" class="cov-line-num">8</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:status</span>]).to eq(<span style="color: #98c379;">:authorized</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L9" target="_blank" rel="noopener" class="cov-line-num">9</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/payment_service_spec.rb#L5" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem callback recalculates order total on save</td>
+        <td><span class="file-path">spec/models/order_item_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:13</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" class="cov-line-num">13</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;recalculates order total on save&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L14" target="_blank" rel="noopener" class="cov-line-num">14</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L15" target="_blank" rel="noopener" class="cov-line-num">15</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:order_item</span>, order: order, quantity: 2, unit_price_cents: 1000)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L16" target="_blank" rel="noopener" class="cov-line-num">16</a>
+                                        <div class="cov-line-code">      expect(order.reload.total_cents).to eq(2000)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L17" target="_blank" rel="noopener" class="cov-line-num">17</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize raises when no pharmacies available</td>
+        <td><span class="file-path">spec/services/cart_optimizer_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:16</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" class="cov-line-num">16</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;raises when no pharmacies available&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L17" target="_blank" rel="noopener" class="cov-line-num">17</a>
+                                        <div class="cov-line-code">      products = create_list(<span style="color: #98c379;">:product</span>, 2)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L18" target="_blank" rel="noopener" class="cov-line-num">18</a>
+                                        <div class="cov-line-code">      inactive = create(<span style="color: #98c379;">:pharmacy</span>, active: <span style="color: #c678dd;">false</span>, auto_accept_orders: <span style="color: #c678dd;">false</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L19" target="_blank" rel="noopener" class="cov-line-num">19</a>
+                                        <div class="cov-line-code"></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L20" target="_blank" rel="noopener" class="cov-line-num">20</a>
+                                        <div class="cov-line-code">      expect {</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L21" target="_blank" rel="noopener" class="cov-line-num">21</a>
+                                        <div class="cov-line-code">        described_<span style="color: #c678dd;">class</span>.new(products, [inactive]).optimize</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L22" target="_blank" rel="noopener" class="cov-line-num">22</a>
+                                        <div class="cov-line-code">      }.to raise_error(<span style="color: var(--cyan);">CartOptimizer::CartOptimizationError</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L23" target="_blank" rel="noopener" class="cov-line-num">23</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Pharmacy validations is expected to be valid</td>
+        <td><span class="file-path">spec/models/pharmacy_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L7" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:7</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L7" target="_blank" rel="noopener" class="cov-line-num">7</a>
+                                        <div class="cov-line-code">    it { is_expected.to be_valid }</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L8" target="_blank" rel="noopener" class="cov-line-num">8</a>
+                                        <div class="cov-line-code"></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L9" target="_blank" rel="noopener" class="cov-line-num">9</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;requires name&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L10" target="_blank" rel="noopener" class="cov-line-num">10</a>
+                                        <div class="cov-line-code">      subject.name = <span style="color: #c678dd;">nil</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L11" target="_blank" rel="noopener" class="cov-line-num">11</a>
+                                        <div class="cov-line-code">      expect(subject).not_to be_valid</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L12" target="_blank" rel="noopener" class="cov-line-num">12</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/pharmacy_spec.rb#L7" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! decrements stock</td>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L69" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:69</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L69" target="_blank" rel="noopener" class="cov-line-num">69</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;decrements stock&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L70" target="_blank" rel="noopener" class="cov-line-num">70</a>
+                                        <div class="cov-line-code">      product = create(<span style="color: #98c379;">:product</span>, stock: 10)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L71" target="_blank" rel="noopener" class="cov-line-num">71</a>
+                                        <div class="cov-line-code">      product.reserve!(3)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L72" target="_blank" rel="noopener" class="cov-line-num">72</a>
+                                        <div class="cov-line-code">      expect(product.reload.stock).to eq(7)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L73" target="_blank" rel="noopener" class="cov-line-num">73</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L69" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Order#ship! ships confirmed orders</td>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L26" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L26" target="_blank" rel="noopener" class="cov-line-num">26</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;ships confirmed orders&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L27" target="_blank" rel="noopener" class="cov-line-num">27</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>, <span style="color: #98c379;">:confirmed</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L28" target="_blank" rel="noopener" class="cov-line-num">28</a>
+                                        <div class="cov-line-code">      order.ship!</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L29" target="_blank" rel="noopener" class="cov-line-num">29</a>
+                                        <div class="cov-line-code">      expect(order.reload.status).to eq(<span style="color: #98c379;">&quot;shipped&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L30" target="_blank" rel="noopener" class="cov-line-num">30</a>
+                                        <div class="cov-line-code">      expect(order.shipped_at).to be_present</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L31" target="_blank" rel="noopener" class="cov-line-num">31</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L26" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .active returns only active products</td>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L32" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:32</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L32" target="_blank" rel="noopener" class="cov-line-num">32</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;.active returns only active products&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L33" target="_blank" rel="noopener" class="cov-line-num">33</a>
+                                        <div class="cov-line-code">      active = create(<span style="color: #98c379;">:product</span>, active: <span style="color: #c678dd;">true</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L34" target="_blank" rel="noopener" class="cov-line-num">34</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:product</span>, active: <span style="color: #c678dd;">false</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L35" target="_blank" rel="noopener" class="cov-line-num">35</a>
+                                        <div class="cov-line-code">      expect(<span style="color: var(--cyan);">Product</span>.active).to eq([active])</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L36" target="_blank" rel="noopener" class="cov-line-num">36</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L32" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .by_category filters by category</td>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L44" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:44</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L44" target="_blank" rel="noopener" class="cov-line-num">44</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;.by_category filters by category&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L45" target="_blank" rel="noopener" class="cov-line-num">45</a>
+                                        <div class="cov-line-code">      pharma = create(<span style="color: #98c379;">:product</span>, category: <span style="color: #98c379;">&quot;pharma&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L46" target="_blank" rel="noopener" class="cov-line-num">46</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:product</span>, category: <span style="color: #98c379;">&quot;cosmetics&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L47" target="_blank" rel="noopener" class="cov-line-num">47</a>
+                                        <div class="cov-line-code">      expect(<span style="color: var(--cyan);">Product</span>.by_category(<span style="color: #98c379;">&quot;pharma&quot;</span>)).to eq([pharma])</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L48" target="_blank" rel="noopener" class="cov-line-num">48</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L44" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .in_stock returns products with stock &gt; 0</td>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L38" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:38</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L38" target="_blank" rel="noopener" class="cov-line-num">38</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;.in_stock returns products with stock &gt; 0&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L39" target="_blank" rel="noopener" class="cov-line-num">39</a>
+                                        <div class="cov-line-code">      in_stock = create(<span style="color: #98c379;">:product</span>, stock: 10)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L40" target="_blank" rel="noopener" class="cov-line-num">40</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:product</span>, stock: 0)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L41" target="_blank" rel="noopener" class="cov-line-num">41</a>
+                                        <div class="cov-line-code">      expect(<span style="color: var(--cyan);">Product</span>.in_stock).to eq([in_stock])</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L42" target="_blank" rel="noopener" class="cov-line-num">42</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L38" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate returns standard shipping cost</td>
+        <td><span class="file-path">spec/services/shipping_calculator_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L7" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:7</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L7" target="_blank" rel="noopener" class="cov-line-num">7</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;returns standard shipping cost&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L8" target="_blank" rel="noopener" class="cov-line-num">8</a>
+                                        <div class="cov-line-code">      result = described_<span style="color: #c678dd;">class</span>.new(order).calculate(method: <span style="color: #98c379;">:standard</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L9" target="_blank" rel="noopener" class="cov-line-num">9</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:cost</span>]).to eq(499)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L10" target="_blank" rel="noopener" class="cov-line-num">10</a>
+                                        <div class="cov-line-code">      expect(result[<span style="color: #98c379;">:method</span>]).to eq(<span style="color: #98c379;">:standard</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L11" target="_blank" rel="noopener" class="cov-line-num">11</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/services/shipping_calculator_spec.rb#L7" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Order#confirm! sets status to confirmed</td>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L18" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:18</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L18" target="_blank" rel="noopener" class="cov-line-num">18</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;sets status to confirmed&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L19" target="_blank" rel="noopener" class="cov-line-num">19</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>, status: <span style="color: #98c379;">&quot;pending&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L20" target="_blank" rel="noopener" class="cov-line-num">20</a>
+                                        <div class="cov-line-code">      order.confirm!</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L21" target="_blank" rel="noopener" class="cov-line-num">21</a>
+                                        <div class="cov-line-code">      expect(order.reload.status).to eq(<span style="color: #98c379;">&quot;confirmed&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L22" target="_blank" rel="noopener" class="cov-line-num">22</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L18" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Order#deliver! delivers shipped orders</td>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L40" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:40</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L40" target="_blank" rel="noopener" class="cov-line-num">40</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;delivers shipped orders&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L41" target="_blank" rel="noopener" class="cov-line-num">41</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>, <span style="color: #98c379;">:shipped</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L42" target="_blank" rel="noopener" class="cov-line-num">42</a>
+                                        <div class="cov-line-code">      order.deliver!</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L43" target="_blank" rel="noopener" class="cov-line-num">43</a>
+                                        <div class="cov-line-code">      expect(order.reload.status).to eq(<span style="color: #98c379;">&quot;delivered&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L44" target="_blank" rel="noopener" class="cov-line-num">44</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L40" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Order#ship! raises on non-confirmed orders</td>
+        <td><span class="file-path">spec/models/order_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L33" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:33</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L33" target="_blank" rel="noopener" class="cov-line-num">33</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;raises on non-confirmed orders&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L34" target="_blank" rel="noopener" class="cov-line-num">34</a>
+                                        <div class="cov-line-code">      order = create(<span style="color: #98c379;">:order</span>, status: <span style="color: #98c379;">&quot;pending&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L35" target="_blank" rel="noopener" class="cov-line-num">35</a>
+                                        <div class="cov-line-code">      expect { order.ship! }.to raise_error(<span style="color: #98c379;">&quot;Cannot ship unconfirmed order&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L36" target="_blank" rel="noopener" class="cov-line-num">36</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/order_spec.rb#L33" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                        <tr class="perf-test-row" style="cursor: pointer;">
+        <td style="color: var(--text-primary); max-width: 400px;">Product validations requires unique minsan_code</td>
+        <td><span class="file-path">spec/models/product_spec.rb <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L19" target="_blank" rel="noopener" title="Open on GitHub" class="gh-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>:19</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+                  <tr class="perf-test-detail" style="display:none;">
+        <td colspan="4" style="padding: 0;">
+          <div style="padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Test Source</div>
+                <div class="file-viewer" style="max-height: 300px;">
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L19" target="_blank" rel="noopener" class="cov-line-num">19</a>
+                                        <div class="cov-line-code">    it <span style="color: #98c379;">&quot;requires unique minsan_code&quot;</span> <span style="color: #c678dd;">do</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L20" target="_blank" rel="noopener" class="cov-line-num">20</a>
+                                        <div class="cov-line-code">      create(<span style="color: #98c379;">:product</span>, minsan_code: <span style="color: #98c379;">&quot;DUP001&quot;</span>)</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L21" target="_blank" rel="noopener" class="cov-line-num">21</a>
+                                        <div class="cov-line-code">      subject.minsan_code = <span style="color: #98c379;">&quot;DUP001&quot;</span></div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L22" target="_blank" rel="noopener" class="cov-line-num">22</a>
+                                        <div class="cov-line-code">      expect(subject).not_to be_valid</div>
+                  </div>
+                                    <div class="cov-line cov-line-none">
+                                        <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L23" target="_blank" rel="noopener" class="cov-line-num">23</a>
+                                        <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
+                  </div>
+                                  </div>
+              </div>
+                            <div style="flex-shrink: 0; padding-top: 24px;">
+                <a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/0620ed1/spec/models/product_spec.rb#L19" target="_blank" rel="noopener" style="font-size: 11px; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                  View on GitHub
+                </a>
+            </div>
+                      </div>
+        </td>
+      </tr>
+                </tbody>
+  </table>
+</div>
+
+
+
+
+
+  </div>
+  <div class="tab-content" id="tab-factories">
+    <div class="empty-state">No factory profiling data available. Run tests with <code>FPROF=json</code> enabled.</div>
+
+  </div>
+  <div class="tab-content" id="tab-insights">
+    
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--red-dim); color: var(--red);">&#128293;</div>
+    <div class="insight-title">High-Risk Files</div>
+    <div class="insight-count">high churn + low coverage</div>
+  </div>
+    <div class="empty-state">No high-risk files detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--yellow-dim); color: var(--yellow);">&#9201;&#65039;</div>
+    <div class="insight-title">Over-Tested Files</div>
+    <div class="insight-count">high coverage + very slow</div>
+  </div>
+    <div class="empty-state">No over-tested files detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--purple); color: #fff;">&#127917;</div>
+    <div class="insight-title">False Security</div>
+    <div class="insight-count">&gt;70% time in hooks</div>
+  </div>
+    <div class="empty-state">No false security issues detected.</div>
+  </div>
+
+
+<div class="insight-section">
+  <div class="insight-header">
+    <div class="insight-icon" style="background: var(--red-dim); color: var(--red);">&#9888;&#65039;</div>
+    <div class="insight-title">Untested Hot Paths</div>
+    <div class="insight-count">active development + low coverage</div>
+  </div>
+    <div class="empty-state">No untested hot paths detected.</div>
+  </div>
+
+  </div>
+    <div class="tab-content" id="tab-parallel">
+    
+<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+  <div style="font-size: 48px; font-weight: 800; color: var(--accent); letter-spacing: -2px;">2</div>
+  <div>
+    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary);">parallel nodes</div>
+    <div style="font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-top: 4px;">
+      wall clock: 164ms &middot;
+      total CPU: 291ms &middot;
+      efficiency: <span style="color: var(--green); font-weight: 600;">88.7%</span>
+    </div>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Per-Node Breakdown</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th data-sort>Node</th>
+        <th data-sort>Examples</th>
+        <th data-sort>Duration</th>
+        <th data-sort>Failures</th>
+        <th>Slowest Test</th>
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">node-0</span></td>
+        <td><span class="num">30</span></td>
+        <td><span class="num" style="font-weight: 700;">164ms</span></td>
+        <td><span class="num" style="color: var(--green);">0</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">OrderItem#subtotal_cents multiplies quantity by unit price (0.061s)</td>
+      </tr>
+            <tr>
+        <td><span class="num" style="color: var(--cyan); font-weight: 600;">node-1</span></td>
+        <td><span class="num">10</span></td>
+        <td><span class="num" style="font-weight: 700;">127ms</span></td>
+        <td><span class="num" style="color: var(--green);">0</span></td>
+        <td style="font-size: 11px; color: var(--text-muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">CartOptimizer#optimize returns the cheapest pharmacy (0.066s)</td>
+      </tr>
+          </tbody>
+  </table>
+</div>
+
+
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="table-title">Duration Balance</div>
+  </div>
+  <div style="padding: 16px 20px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+      <div style="width: 60px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">node-0</div>
+      <div style="flex: 1; height: 22px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden;">
+        <div style="width: 100%; height: 100%; background: var(--accent); opacity: 0.7; border-radius: 4px; display: flex; align-items: center; padding-left: 8px;">
+          <span style="font-family: var(--mono); font-size: 10px; color: #fff; white-space: nowrap;">164ms</span>
+        </div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">30 ex</div>
+    </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+      <div style="width: 60px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-muted); flex-shrink: 0;">node-1</div>
+      <div style="flex: 1; height: 22px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden;">
+        <div style="width: 77%; height: 100%; background: var(--accent); opacity: 0.7; border-radius: 4px; display: flex; align-items: center; padding-left: 8px;">
+          <span style="font-family: var(--mono); font-size: 10px; color: #fff; white-space: nowrap;">127ms</span>
+        </div>
+      </div>
+      <div style="width: 50px; font-family: var(--mono); font-size: 11px; color: var(--text-secondary);">10 ex</div>
+    </div>
+      </div>
+</div>
+
+
+
+
+  </div>
+  
+</div>
+
+<script type="application/json" id="report-data">{"diff_coverage":null,"file_coverage":[],"factory_health":null,"insights":{"high_risk":[],"over_tested":[],"false_security":[],"untested_hot_paths":[]}}</script>
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    tab.classList.add('active');
+    const target = document.getElementById('tab-' + tab.dataset.tab);
+    if (target) target.classList.add('active');
+  });
+});
+
+// Table sorting (skips detail rows)
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', function() {
+    const table = this.closest('table');
+    const tbody = table.querySelector('tbody');
+    // Only sort primary rows, not detail/expand rows
+    const rows = Array.from(tbody.querySelectorAll('tr:not(.cov-file-detail)'));
+    const idx = Array.from(this.parentNode.children).indexOf(this);
+    const asc = !this.classList.contains('sorted-asc');
+    this.parentNode.querySelectorAll('th').forEach(h => h.classList.remove('sorted', 'sorted-asc', 'sorted-desc'));
+    this.classList.add('sorted', asc ? 'sorted-asc' : 'sorted-desc');
+    rows.sort((a, b) => {
+      const aVal = a.children[idx]?.textContent.trim() || '';
+      const bVal = b.children[idx]?.textContent.trim() || '';
+      const aNum = parseFloat(aVal.replace(/[^0-9.\-]/g, ''));
+      const bNum = parseFloat(bVal.replace(/[^0-9.\-]/g, ''));
+      if (!isNaN(aNum) && !isNaN(bNum)) return asc ? aNum - bNum : bNum - aNum;
+      return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    // Re-append each row followed by its detail row
+    rows.forEach(row => {
+      tbody.appendChild(row);
+      const detail = row.nextElementSibling;
+      if (detail?.classList.contains('cov-file-detail')) tbody.appendChild(detail);
+    });
+  });
+});
+
+// File filter
+document.querySelectorAll('.table-filter').forEach(input => {
+  input.addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    const table = this.closest('.table-wrap').querySelector('tbody');
+    if (!table) return;
+    table.querySelectorAll('tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+    });
+  });
+});
+
+// Toggle 100% coverage files
+const hideFullCov = document.getElementById('hide-full-cov');
+if (hideFullCov) {
+  hideFullCov.addEventListener('change', function() {
+    document.querySelectorAll('[data-cov-pct]').forEach(row => {
+      if (parseFloat(row.dataset.covPct) >= 100) {
+        row.style.display = this.checked ? 'none' : '';
+      }
+    });
+  });
+}
+
+// Coverage file expand/collapse
+document.querySelectorAll('.cov-file-row').forEach(row => {
+  row.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return; // don't toggle when clicking links
+    const detail = this.nextElementSibling;
+    if (detail?.classList.contains('cov-file-detail')) {
+      detail.style.display = detail.style.display === 'none' ? '' : 'none';
+    }
+  });
+});
+
+// Failure row expand/collapse
+document.querySelectorAll('.failure-row').forEach(row => {
+  row.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    const detail = this.nextElementSibling;
+    if (detail?.classList.contains('failure-detail')) {
+      detail.style.display = detail.style.display === 'none' ? '' : 'none';
+    }
+  });
+});
+
+// Performance test expand/collapse
+document.querySelectorAll('.perf-test-row').forEach(row => {
+  row.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    const detail = this.nextElementSibling;
+    if (detail?.classList.contains('perf-test-detail')) {
+      detail.style.display = detail.style.display === 'none' ? '' : 'none';
+    }
+  });
+});
+
+// Factory row expand/collapse
+document.querySelectorAll('.factory-row').forEach(row => {
+  row.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    const detail = this.nextElementSibling;
+    if (detail?.classList.contains('factory-detail')) {
+      detail.style.display = detail.style.display === 'none' ? '' : 'none';
+    }
+  });
+});
+
+// Diff file expand/collapse
+document.querySelectorAll('.diff-file-toggle').forEach(toggle => {
+  toggle.addEventListener('click', function() {
+    const content = this.closest('.diff-file-section').querySelector('.diff-file-content');
+    const arrow = this.querySelector('.diff-arrow');
+    if (content) {
+      const hidden = content.style.display === 'none';
+      content.style.display = hidden ? '' : 'none';
+      if (arrow) arrow.textContent = hidden ? '\u25BC' : '\u25B6';
+    }
+  });
+});
+</script>
+
+</body>
+</html>

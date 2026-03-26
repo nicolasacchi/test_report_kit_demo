@@ -1,0 +1,54 @@
+{
+  "coverage_pct": null,
+  "coverage_delta": null,
+  "branch_coverage_pct": null,
+  "diff_coverage_pct": null,
+  "diff_coverage_passed": null,
+  "diff_coverage_threshold": 90,
+  "diff_changed_lines": null,
+  "diff_executable_lines": null,
+  "diff_covered_lines": null,
+  "diff_uncovered_lines": null,
+  "diff_uncovered_files": [],
+  "duration_seconds": 0.304,
+  "duration_formatted": "0s",
+  "total_examples": 40,
+  "failed_examples": 0,
+  "pending_examples": 0,
+  "slowest_test_name": "CartOptimizer#optimize returns the cheapest pharmacy",
+  "slowest_test_duration": 0.07,
+  "slowest_tests": [
+    {
+      "description": "CartOptimizer#optimize returns the cheapest pharmacy",
+      "file": "./spec/services/cart_optimizer_spec.rb:6",
+      "duration": 0.07
+    },
+    {
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.06
+    },
+    {
+      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
+      "file": "./spec/services/shipping_calculator_spec.rb:26",
+      "duration": 0.03
+    },
+    {
+      "description": "InventorySyncJob#perform syncs products for active pharmacy",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "duration": 0.01
+    },
+    {
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:51",
+      "duration": 0.01
+    }
+  ],
+  "total_factory_creates": null,
+  "top_risks": [],
+  "peak_memory_mb": null,
+  "cpu_user_seconds": null,
+  "generated_at": "2026-03-26T15:26:36+00:00",
+  "branch": "feature/parallel-tests",
+  "sha": "0620ed1b2dcd62eaf472138220094199eaa5ce9b"
+}
