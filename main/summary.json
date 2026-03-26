@@ -10,7 +10,7 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.233652296,
+  "duration_seconds": 0.237786559,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
@@ -62,7 +62,7 @@
       "churn": 6
     }
   ],
-  "generated_at": "2026-03-26T13:26:12+00:00",
+  "generated_at": "2026-03-26T13:34:30+00:00",
   "branch": "main",
-  "sha": "aa723e176a335b9e9272e3eeaae6e6ce01cc3435"
+  "sha": "ca4ef8e3c7a75e1282dc8ee4134fb6c7489df40f"
 }
