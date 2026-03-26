@@ -42,17 +42,10 @@ jobs:
       env:
         RAILS_ENV: test
         TEST_ENV_NUMBER: ${{ matrix.node }}
-        FPROF: json
-        EVENT_PROF: factory.create
-        RD_PROF: "1"
+        TEST_REPORT_SPECS: ${{ matrix.specs }}
         TEST_REPORT_BRANCH: ${{ github.ref_name }}
         TEST_REPORT_SHA: ${{ github.sha }}
-        NODE_SPECS: ${{ matrix.specs }}
-      run: |
-        mkdir -p tmp/test_report
-        bundle exec rspec $NODE_SPECS \
-          --format json --out tmp/test_report/rspec_results.json \
-          --format progress
+      run: bundle exec rake test_report:full
 
     - name: Upload node artifacts
       if: always()
