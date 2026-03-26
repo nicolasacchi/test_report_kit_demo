@@ -29,9 +29,10 @@ jobs:
         ruby-version: '3.3'
 
     - name: Bundle install
-      env:
-        BUNDLE_GITHUB__COM: x-access-token:${{ github.token }}
-      run: bundle install
+      run: |
+        rm -rf vendor/bundle/ruby/*/cache/bundler/git/test_report_kit-*
+        bundle config set --local github.https true
+        bundle install
 
     - run: bundle exec rails db:create db:migrate
       env:
@@ -82,9 +83,10 @@ jobs:
         ruby-version: '3.3'
 
     - name: Bundle install
-      env:
-        BUNDLE_GITHUB__COM: x-access-token:${{ github.token }}
-      run: bundle install
+      run: |
+        rm -rf vendor/bundle/ruby/*/cache/bundler/git/test_report_kit-*
+        bundle config set --local github.https true
+        bundle install
 
     - run: bundle exec rails db:create db:migrate
       env:
