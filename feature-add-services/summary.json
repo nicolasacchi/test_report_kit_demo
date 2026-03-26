@@ -31,22 +31,22 @@
       "uncovered_count": 8
     }
   ],
-  "duration_seconds": 0.266015243,
+  "duration_seconds": 0.247589207,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
-  "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
-  "slowest_test_duration": 0.04,
+  "slowest_test_name": "OrderItem#subtotal_cents multiplies quantity by unit price",
+  "slowest_test_duration": 0.05,
   "slowest_tests": [
+    {
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.05
+    },
     {
       "description": "InventorySyncJob#perform syncs products for active pharmacy",
       "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
-      "duration": 0.04
-    },
-    {
-      "description": "Order#recalculate_total! sums order item subtotals",
-      "file": "./spec/models/order_spec.rb:51",
       "duration": 0.03
     },
     {
@@ -55,13 +55,13 @@
       "duration": 0.03
     },
     {
-      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
-      "file": "./spec/models/order_item_spec.rb:5",
+      "description": "OrderItem callback recalculates order total on save",
+      "file": "./spec/models/order_item_spec.rb:13",
       "duration": 0.02
     },
     {
-      "description": "Order#ship! ships confirmed orders",
-      "file": "./spec/models/order_spec.rb:26",
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:51",
       "duration": 0.01
     }
   ],
@@ -83,7 +83,7 @@
       "churn": 1
     }
   ],
-  "generated_at": "2026-03-26T11:41:38+00:00",
+  "generated_at": "2026-03-26T12:14:24+00:00",
   "branch": "feature/add-services",
-  "sha": "81427359fa008e9627531c3dc618bbd752d32110"
+  "sha": "6d3cbbcbc63381e7f89435e711a9533bbf7e0e84"
 }

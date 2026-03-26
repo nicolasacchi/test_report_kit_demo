@@ -1,7 +1,7 @@
 # Test Report: test_report_kit_demo
 
-Generated: 2026-03-26T11:41:38+00:00  
-Branch: `feature/add-services` | SHA: `81427359fa008e9627531c3dc618bbd752d32110`
+Generated: 2026-03-26T12:14:24+00:00  
+Branch: `feature/add-services` | SHA: `6d3cbbcbc63381e7f89435e711a9533bbf7e0e84`
 
 ---
 
@@ -52,7 +52,6 @@ Uncovered lines: `3, 4, 8, 9, 10, 11, 12, 18, 19, 23, 24, 28, 29, 30, 31, 32, 34
 - 31:     elsif [6, 7, 8].include?(month)
 - 32:       (price * 0.95).round # summer discount
   33:     else
-  33:     else
 - 34:       price
   35:     end
 ```
@@ -69,7 +68,6 @@ Uncovered lines: `20, 21, 25, 26, 28, 35, 36, 37, 39, 41`
 - 25:     if @order.cod?
 - 26:       @order.cancel!(reason: "payment_timeout")
   27:     else
-  27:     else
 - 28:       retry_capture
   29:     end
   34:   def retry_capture
@@ -77,9 +75,7 @@ Uncovered lines: `20, 21, 25, 26, 28, 35, 36, 37, 39, 41`
 - 36:       result = capture!
 - 37:       return result if result[:status] == :captured
   38:     rescue PaymentError
-  38:     rescue PaymentError
 - 39:       next
-  40:     end
   40:     end
 - 41:     @order.cancel!(reason: "capture_failed_after_retries")
   42:   end
@@ -120,7 +116,6 @@ Uncovered lines: `30, 31, 35, 39, 40, 41, 43, 49`
 - 39:     items.map do |item|
 - 40:       if item[:price] > 4000
 - 41:         item.merge(discount: (item[:price] * 0.05).round)
-  42:       else
   42:       else
 - 43:         item
   44:       end

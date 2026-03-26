@@ -1,8 +1,8 @@
 {
   "days": 90,
   "files": {
+    "Gemfile": 3,
     ".github/workflows/test-report.yml": 2,
-    "Gemfile": 2,
     ".github/dependabot.yml": 1,
     ".github/workflows/ci.yml": 1,
     "README.md": 1,
