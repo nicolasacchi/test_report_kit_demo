@@ -18,3 +18,4 @@ group :test do
   gem "simplecov-json", require: false
   gem "test-prof", "~> 1.0"
 end
+
