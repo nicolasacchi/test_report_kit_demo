@@ -10,23 +10,23 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.237786559,
+  "duration_seconds": 0.320945181,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
-  "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
-  "slowest_test_duration": 0.03,
+  "slowest_test_name": "Order#recalculate_total! sums order item subtotals",
+  "slowest_test_duration": 0.05,
   "slowest_tests": [
-    {
-      "description": "InventorySyncJob#perform syncs products for active pharmacy",
-      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
-      "duration": 0.03
-    },
     {
       "description": "Order#recalculate_total! sums order item subtotals",
       "file": "./spec/models/order_spec.rb:51",
-      "duration": 0.03
+      "duration": 0.05
+    },
+    {
+      "description": "InventorySyncJob#perform syncs products for active pharmacy",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "duration": 0.04
     },
     {
       "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
@@ -34,14 +34,14 @@
       "duration": 0.03
     },
     {
-      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
-      "file": "./spec/models/order_item_spec.rb:5",
+      "description": "Order#ship! ships confirmed orders",
+      "file": "./spec/models/order_spec.rb:26",
       "duration": 0.02
     },
     {
-      "description": "Order#ship! ships confirmed orders",
-      "file": "./spec/models/order_spec.rb:26",
-      "duration": 0.01
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.02
     }
   ],
   "total_factory_creates": 67,
@@ -62,7 +62,7 @@
       "churn": 6
     }
   ],
-  "generated_at": "2026-03-26T13:34:30+00:00",
+  "generated_at": "2026-03-26T13:47:57+00:00",
   "branch": "main",
-  "sha": "ca4ef8e3c7a75e1282dc8ee4134fb6c7489df40f"
+  "sha": "9993635c4b8d00be5880607da69873c4f23f0354"
 }
