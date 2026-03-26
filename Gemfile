@@ -22,3 +22,4 @@ end
 # coverage viewer
 # syntax fix
 # ux
+# perf
