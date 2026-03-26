@@ -1,0 +1,46 @@
+EventProf results for factory.create
+
+Total time: 00:00.186 of 00:00.287 (64.77%)
+Total events: 61
+
+Top 5 slowest suites (by time):
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.045 (12 / 2) of 00:00.052 (87.02%)
+Order (./spec/models/order_spec.rb:3) – 00:00.039 (8 / 8) of 00:00.085 (45.78%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.031 (12 / 5) of 00:00.037 (82.99%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.028 (3 / 2) of 00:00.033 (84.67%)
+CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.017 (11 / 3) of 00:00.024 (68.56%)
+
+
+
+Failures:
+
+  1) Order#cancel! sets cancelled_at timestamp
+     Failure/Error: expect(order.reload.cancelled_at).to be_present
+
+     NoMethodError:
+       undefined method `cancelled_at' for an instance of Order
+     # ./spec/models/order_spec.rb:52:in `block (3 levels) in <top (required)>'
+
+  2) CartOptimizer#optimize with discounts applies 5% discount for items over 50 EUR
+     Failure/Error: expect(result[:total_cost]).to eq(11400)
+
+       expected: 11400
+            got: 12000
+
+       (compared using ==)
+     # ./spec/services/cart_optimizer_spec.rb:32:in `block (3 levels) in <top (required)>'
+
+  3) PaymentService#refund! includes a refund transaction ID
+     Failure/Error: expect(result[:transaction_id]).to be_present
+       expected `nil.present?` to be truthy, got false
+     # ./spec/services/payment_service_spec.rb:30:in `block (3 levels) in <top (required)>'
+
+  4) PricingEngine#calculate does not apply volume discount for low stock
+     Failure/Error: expect(result[:final_price]).to eq(1000)
+
+       expected: 1000
+            got: 960
+
+       (compared using ==)
+     # ./spec/services/pricing_engine_spec.rb:10:in `block (3 levels) in <top (required)>'

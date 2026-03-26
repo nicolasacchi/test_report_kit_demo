@@ -1,0 +1,84 @@
+[TEST PROF INFO] FactoryProf enabled (simple mode)
+[TEST PROF INFO] RSpecDissect enabled
+[TEST PROF INFO] EventProf enabled (factory.create)
+..........F......................F...FF.....[TEST PROF INFO] RSpecDissect report
+
+Total time: 00:00.276
+Total setup time: 00:00.050
+
+
+Top 5 slowest suites by setup time:
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.044[22m of 00:00.052 / 2 (before: 00:00.037, before let: 00:00.000, lazy let: 00:00.007)
+ ↳ pharmacy – 00:00.007 (1)
+
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.004[22m of 00:00.037 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.004)
+ ↳ order – 00:00.004 (3)
+
+Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.030 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.079 / 8 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.008 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+
+[TEST PROF INFO] EventProf results for factory.create
+
+Total time: 00:00.186 of 00:00.287 (64.77%)
+Total events: 61
+
+Top 5 slowest suites (by time):
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.045 (12 / 2) of 00:00.052 (87.02%)
+Order (./spec/models/order_spec.rb:3) – 00:00.039 (8 / 8) of 00:00.085 (45.78%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.031 (12 / 5) of 00:00.037 (82.99%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.028 (3 / 2) of 00:00.033 (84.67%)
+CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.017 (11 / 3) of 00:00.024 (68.56%)
+
+
+
+Failures:
+
+  1) Order#cancel! sets cancelled_at timestamp
+     Failure/Error: expect(order.reload.cancelled_at).to be_present
+
+     NoMethodError:
+       undefined method `cancelled_at' for an instance of Order
+     # ./spec/models/order_spec.rb:52:in `block (3 levels) in <top (required)>'
+
+  2) CartOptimizer#optimize with discounts applies 5% discount for items over 50 EUR
+     Failure/Error: expect(result[:total_cost]).to eq(11400)
+
+       expected: 11400
+            got: 12000
+
+       (compared using ==)
+     # ./spec/services/cart_optimizer_spec.rb:32:in `block (3 levels) in <top (required)>'
+
+  3) PaymentService#refund! includes a refund transaction ID
+     Failure/Error: expect(result[:transaction_id]).to be_present
+       expected `nil.present?` to be truthy, got false
+     # ./spec/services/payment_service_spec.rb:30:in `block (3 levels) in <top (required)>'
+
+  4) PricingEngine#calculate does not apply volume discount for low stock
+     Failure/Error: expect(result[:final_price]).to eq(1000)
+
+       expected: 1000
+            got: 960
+
+       (compared using ==)
+     # ./spec/services/pricing_engine_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+Finished in 0.28931 seconds (files took 2.11 seconds to load)
+44 examples, 4 failures
+
+Failed examples:
+
+rspec ./spec/models/order_spec.rb:48 # Order#cancel! sets cancelled_at timestamp
+rspec ./spec/services/cart_optimizer_spec.rb:27 # CartOptimizer#optimize with discounts applies 5% discount for items over 50 EUR
+rspec ./spec/services/payment_service_spec.rb:26 # PaymentService#refund! includes a refund transaction ID
+rspec ./spec/services/pricing_engine_spec.rb:5 # PricingEngine#calculate does not apply volume discount for low stock
+
+[TEST PROF INFO] Profile results to JSON: tmp/test_prof/test-prof.result.json
+Coverage report generated for RSpec to /home/runner/work/test_report_kit_demo/test_report_kit_demo/coverage.
+Line Coverage: 85.96% (153 / 178)
+Branch Coverage: 52.83% (28 / 53)
+Coverage report generated for RSpec to /home/runner/work/test_report_kit_demo/test_report_kit_demo/coverage/coverage.json. 153 / 178 LOC (85.96%) covered.
+Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected
