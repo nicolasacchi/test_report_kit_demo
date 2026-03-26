@@ -1,4 +1,4 @@
 RSpecDissect report
 
-Total time: 00:00.229
-Total setup time: 00:00.036
+Total time: 00:00.210
+Total setup time: 00:00.035

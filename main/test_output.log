@@ -3,8 +3,8 @@
 [TEST PROF INFO] EventProf enabled (factory.create)
 ........................................[TEST PROF INFO] RSpecDissect report
 
-Total time: 00:00.229
-Total setup time: 00:00.036
+Total time: 00:00.210
+Total setup time: 00:00.035
 
 
 Top 5 slowest suites by setup time:
@@ -12,29 +12,29 @@ Top 5 slowest suites by setup time:
 InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.030[22m of 00:00.036 / 2 (before: 00:00.025, before let: 00:00.000, lazy let: 00:00.005)
  ↳ pharmacy – 00:00.005 (1)
 
-ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.004[22m of 00:00.035 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.004)
- ↳ order – 00:00.004 (3)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.003[22m of 00:00.033 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.003)
+ ↳ order – 00:00.003 (3)
 
-Product (./spec/models/product_spec.rb:3) – [1m00:00.001[22m of 00:00.053 / 13 (before: 00:00.001, before let: 00:00.000, lazy let: 00:00.000)
-Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.034 / 7 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.027 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.026 / 7 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
 Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.007 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
 
 [TEST PROF INFO] EventProf results for factory.create
 
-Total time: 00:00.155 of 00:00.236 (65.74%)
+Total time: 00:00.160 of 00:00.214 (74.54%)
 Total events: 55
 
 Top 5 slowest suites (by time):
 
-InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.031 (12 / 2) of 00:00.037 (85.29%)
-ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.029 (12 / 5) of 00:00.035 (84.37%)
-CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.025 (8 / 2) of 00:00.031 (82.54%)
-Product (./spec/models/product_spec.rb:3) – 00:00.024 (9 / 13) of 00:00.056 (43.17%)
-OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.022 (3 / 2) of 00:00.024 (89.08%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.055 (3 / 2) of 00:00.059 (93.18%)
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.031 (12 / 2) of 00:00.036 (84.98%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.028 (12 / 5) of 00:00.034 (84.09%)
+Product (./spec/models/product_spec.rb:3) – 00:00.013 (9 / 13) of 00:00.028 (47.87%)
+Order (./spec/models/order_spec.rb:3) – 00:00.013 (7 / 7) of 00:00.027 (49.29%)
 
 
 
-Finished in 0.23808 seconds (files took 1.99 seconds to load)
+Finished in 0.2163 seconds (files took 1.74 seconds to load)
 40 examples, 0 failures
 
 [TEST PROF INFO] Profile results to JSON: tmp/test_prof/test-prof.result.json

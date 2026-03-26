@@ -10,18 +10,18 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.238077747,
+  "duration_seconds": 0.216295055,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
-  "slowest_test_name": "ShippingCalculator#calculate adds weight surcharge for large orders",
-  "slowest_test_duration": 0.03,
+  "slowest_test_name": "OrderItem#subtotal_cents multiplies quantity by unit price",
+  "slowest_test_duration": 0.05,
   "slowest_tests": [
     {
-      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
-      "file": "./spec/services/shipping_calculator_spec.rb:26",
-      "duration": 0.03
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.05
     },
     {
       "description": "InventorySyncJob#perform syncs products for active pharmacy",
@@ -29,14 +29,14 @@
       "duration": 0.03
     },
     {
-      "description": "CartOptimizer#optimize returns the cheapest pharmacy",
-      "file": "./spec/services/cart_optimizer_spec.rb:6",
-      "duration": 0.02
+      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
+      "file": "./spec/services/shipping_calculator_spec.rb:26",
+      "duration": 0.03
     },
     {
-      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
-      "file": "./spec/models/order_item_spec.rb:5",
-      "duration": 0.02
+      "description": "OrderItem callback recalculates order total on save",
+      "file": "./spec/models/order_item_spec.rb:13",
+      "duration": 0.01
     },
     {
       "description": "Order#recalculate_total! sums order item subtotals",
@@ -62,7 +62,7 @@
       "churn": 6
     }
   ],
-  "generated_at": "2026-03-26T12:02:13+00:00",
+  "generated_at": "2026-03-26T12:14:20+00:00",
   "branch": "main",
-  "sha": "e7e50d286f1ade19f1763ab5fc9a2c144e76a9cd"
+  "sha": "1575861509d723a5d4b017b3ea1791b938a4734d"
 }

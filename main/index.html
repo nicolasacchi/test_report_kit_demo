@@ -183,9 +183,9 @@
             <span class="badge badge-pass">all passing</span>
           </div>
     <div class="header-meta">
-      <span>mar 26, 2026 · 12:02 utc</span>
+      <span>mar 26, 2026 · 12:14 utc</span>
       <span>branch <code>main</code></span>
-      <span>sha <code>e7e50d2</code></span>
+      <span>sha <code>1575861</code></span>
     </div>
   </div>
 
@@ -221,8 +221,8 @@
   <div class="card">
     <div class="card-glow" style="background: var(--red);"></div>
     <div class="card-label">Slowest Test</div>
-        <div class="card-value" style="color: var(--red);">0.03s</div>
-    <div class="card-sub">ShippingCalculator#calculate adds weight surcharge </div>
+        <div class="card-value" style="color: var(--red);">0.05s</div>
+    <div class="card-sub">OrderItem#subtotal_cents multiplies quantity by uni</div>
       </div>
 
   
@@ -279,7 +279,7 @@
     </thead>
     <tbody>
             <tr class="cov-file-row" data-cov-pct="29.2">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:29.2%; background: var(--red);"></div></div>
@@ -297,12 +297,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">PricingEngine</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">PricingEngine</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> initialize(product, pharmacy = <span style="color: #c678dd;">nil</span>)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> initialize(product, pharmacy = <span style="color: #c678dd;">nil</span>)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">3</div>
@@ -317,7 +317,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">6</div>
@@ -327,7 +327,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">7</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> calculate</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">8</div>
@@ -337,7 +337,7 @@
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">9</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    base = apply_pharmacy_markup(base) <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> @pharmacy</span></div>
+              <div class="cov-line-code">    base = apply_pharmacy_markup(base) <span style="color: #c678dd;">if</span> @pharmacy</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">10</div>
@@ -352,12 +352,12 @@
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    { final_price: base, currency: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;<span style="color: var(--cyan);">EUR</span>&quot;</span> }</span></div>
+              <div class="cov-line-code">    { final_price: base, currency: <span style="color: #98c379;">&quot;EUR&quot;</span> }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">14</div>
@@ -377,7 +377,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_pharmacy_markup(price)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> apply_pharmacy_markup(price)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">18</div>
@@ -392,7 +392,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">21</div>
@@ -402,12 +402,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">22</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_volume_discount(price)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> apply_volume_discount(price)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">23</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> price <span style="color: #c678dd;">if</span> @product.stock.to_i &lt; 100</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">return</span> price <span style="color: #c678dd;">if</span> @product.stock.to_i &lt; 100</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">24</div>
@@ -417,7 +417,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">25</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">26</div>
@@ -427,7 +427,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">27</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_seasonal_adjustment(price)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> apply_seasonal_adjustment(price)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">28</div>
@@ -437,7 +437,7 @@
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">29</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> [11, 12, 1].include?(month)</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">if</span> [11, 12, 1].include?(month)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">30</div>
@@ -447,7 +447,7 @@
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">31</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">elsif</span> [6, 7, 8].include?(month)</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">elsif</span> [6, 7, 8].include?(month)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">32</div>
@@ -457,7 +457,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">33</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">else</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">34</div>
@@ -467,23 +467,23 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">35</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">36</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">37</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="60.0">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:60.0%; background: var(--yellow);"></div></div>
@@ -501,12 +501,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">PaymentService</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">PaymentService</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">PaymentError</span> &lt; <span style="color: var(--cyan);">StandardError</span>; <span style="color: #c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">PaymentError</span> &lt; <span style="color: var(--cyan);">StandardError</span>; <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
@@ -516,7 +516,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> initialize(order)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> initialize(order)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
@@ -526,7 +526,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
@@ -536,27 +536,27 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> authorize!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> authorize!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">9</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Order</span> already paid&quot;</span> <span style="color: #c678dd;">if</span> @order.status == <span style="color: #98c379;">&quot;confirmed&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;Order already paid&quot;</span> <span style="color: #c678dd;">if</span> @order.status == <span style="color: #98c379;">&quot;confirmed&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Invalid</span> order&quot;</span> <span style="color: #c678dd;">unless</span> @order.total_cents&amp;.positive?</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;Invalid order&quot;</span> <span style="color: #c678dd;">unless</span> @order.total_cents&amp;.positive?</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    { status: <span style="color: <span style="color: var(--text-muted);">#98c379;">:authorized</span>, amount: @order.total_cents }</span></div>
+              <div class="cov-line-code">    { status: <span style="color: #98c379;">:authorized</span>, amount: @order.total_cents }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
@@ -566,22 +566,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">14</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> capture!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> capture!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">15</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Must</span> authorize first&quot;</span> <span style="color: #c678dd;">unless</span> @order.status == <span style="color: #98c379;">&quot;confirmed&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;Must authorize first&quot;</span> <span style="color: #c678dd;">unless</span> @order.status == <span style="color: #98c379;">&quot;confirmed&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    { status: <span style="color: <span style="color: var(--text-muted);">#98c379;">:captured</span>, amount: @order.total_cents }</span></div>
+              <div class="cov-line-code">    { status: <span style="color: #98c379;">:captured</span>, amount: @order.total_cents }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">18</div>
@@ -591,22 +591,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> refund!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> refund!</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Cannot</span> refund pending order&quot;</span> <span style="color: #c678dd;">if</span> @order.status == <span style="color: #98c379;">&quot;pending&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: var(--cyan);">PaymentError</span>, <span style="color: #98c379;">&quot;Cannot refund pending order&quot;</span> <span style="color: #c678dd;">if</span> @order.status == <span style="color: #98c379;">&quot;pending&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">21</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    { status: <span style="color: <span style="color: var(--text-muted);">#98c379;">:refunded</span>, amount: @order.total_cents }</span></div>
+              <div class="cov-line-code">    { status: <span style="color: #98c379;">:refunded</span>, amount: @order.total_cents }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">22</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">23</div>
@@ -616,22 +616,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">24</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> handle_timeout</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> handle_timeout</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">25</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> @order.cod?</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">if</span> @order.cod?</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">26</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">      @order.cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;payment_timeout&quot;</span>)</span></div>
+              <div class="cov-line-code">      @order.cancel!(reason: <span style="color: #98c379;">&quot;payment_timeout&quot;</span>)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">27</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">else</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">28</div>
@@ -641,12 +641,12 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">29</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">30</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">31</div>
@@ -666,12 +666,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">34</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> retry_capture</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> retry_capture</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">35</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    3.times <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |attempt|</span></div>
+              <div class="cov-line-code">    3.times <span style="color: #c678dd;">do</span> |attempt|</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">36</div>
@@ -681,43 +681,43 @@
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">37</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> result <span style="color: #c678dd;">if</span> result[<span style="color: #98c379;">:status</span>] == <span style="color: #98c379;">:captured</span></span></div>
+              <div class="cov-line-code">      <span style="color: #c678dd;">return</span> result <span style="color: #c678dd;">if</span> result[<span style="color: #98c379;">:status</span>] == <span style="color: #98c379;">:captured</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">38</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">rescue</span> <span style="color: var(--cyan);">PaymentError</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">rescue</span> <span style="color: var(--cyan);">PaymentError</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">39</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">next</span></span></div>
+              <div class="cov-line-code">      <span style="color: #c678dd;">next</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">40</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">41</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    @order.cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;capture_failed_after_retries&quot;</span>)</span></div>
+              <div class="cov-line-code">    @order.cancel!(reason: <span style="color: #98c379;">&quot;capture_failed_after_retries&quot;</span>)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">42</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">43</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="71.4">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/cart_optimizer.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/cart_optimizer.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/cart_optimizer.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/cart_optimizer.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:71.4%; background: var(--yellow);"></div></div>
@@ -735,12 +735,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">CartOptimizer</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">CartOptimizer</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">CartOptimizationError</span> &lt; <span style="color: var(--cyan);">StandardError</span>; <span style="color: #c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">CartOptimizationError</span> &lt; <span style="color: var(--cyan);">StandardError</span>; <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
@@ -750,7 +750,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> initialize(products, pharmacies)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> initialize(products, pharmacies)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
@@ -765,7 +765,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">8</div>
@@ -775,17 +775,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">9</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> optimize</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> optimize</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    available = @pharmacies.select(&amp;<span style="color: <span style="color: var(--text-muted);">#98c379;">:accepts_orders</span>?)</span></div>
+              <div class="cov-line-code">    available = @pharmacies.select(&amp;<span style="color: #98c379;">:accepts_orders</span>?)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: var(--cyan);">CartOptimizationError</span>, <span style="color: #98c379;">&quot;no pharmacies available&quot;</span> <span style="color: #c678dd;">if</span> available.empty?</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: var(--cyan);">CartOptimizationError</span>, <span style="color: #98c379;">&quot;no pharmacies available&quot;</span> <span style="color: #c678dd;">if</span> available.empty?</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
@@ -805,7 +805,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">15</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">16</div>
@@ -825,7 +825,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> total_cost(pharmacy)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> total_cost(pharmacy)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">20</div>
@@ -835,7 +835,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">21</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">22</div>
@@ -845,12 +845,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">23</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> build_items(pharmacy)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> build_items(pharmacy)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">24</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    @products.map <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |product|</span></div>
+              <div class="cov-line-code">    @products.map <span style="color: #c678dd;">do</span> |product|</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">25</div>
@@ -860,12 +860,12 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">26</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">27</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">28</div>
@@ -875,7 +875,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">29</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate_absorption(pharmacy, product)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> calculate_absorption(pharmacy, product)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">30</div>
@@ -890,7 +890,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">32</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">33</div>
@@ -900,7 +900,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">34</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> max_absorption</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> max_absorption</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">35</div>
@@ -910,7 +910,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">36</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">37</div>
@@ -920,27 +920,27 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">38</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> apply_discounts(items)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> apply_discounts(items)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">39</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    items.map <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |item|</span></div>
+              <div class="cov-line-code">    items.map <span style="color: #c678dd;">do</span> |item|</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">40</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> item[<span style="color: #98c379;">:price</span>] &gt; 4000</span></div>
+              <div class="cov-line-code">      <span style="color: #c678dd;">if</span> item[<span style="color: #98c379;">:price</span>] &gt; 4000</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">41</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">        item.merge(discount: (item[<span style="color: <span style="color: var(--text-muted);">#98c379;">:price</span>] * 0.05).round)</span></div>
+              <div class="cov-line-code">        item.merge(discount: (item[<span style="color: #98c379;">:price</span>] * 0.05).round)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">42</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span></span></div>
+              <div class="cov-line-code">      <span style="color: #c678dd;">else</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">43</div>
@@ -950,17 +950,17 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">44</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">      <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">      <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">45</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">46</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">47</div>
@@ -970,7 +970,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">48</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> validate_availability(pharmacy, products)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> validate_availability(pharmacy, products)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">49</div>
@@ -980,18 +980,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">50</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">51</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="78.6">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/models/order.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/models/order.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:78.6%; background: var(--yellow);"></div></div>
@@ -1009,12 +1009,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">Order</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">Order</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  has_many <span style="color: <span style="color: var(--text-muted);">#98c379;">:order_items</span>, dependent: <span style="color: #98c379;">:destroy</span></span></div>
+              <div class="cov-line-code">  has_many <span style="color: #98c379;">:order_items</span>, dependent: <span style="color: #98c379;">:destroy</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
@@ -1024,12 +1024,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:customer_email</span>, presence: <span style="color: #c678dd;">true</span></span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:customer_email</span>, presence: <span style="color: #c678dd;">true</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:status</span>, inclusion: { in: %w[pending confirmed shipped delivered cancelled] }</span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:status</span>, inclusion: { in: %w[pending confirmed shipped delivered cancelled] }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">6</div>
@@ -1039,12 +1039,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">7</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:pending</span>, -&gt; { where(status: <span style="color: #98c379;">&quot;pending&quot;</span>) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:pending</span>, -&gt; { where(status: <span style="color: #98c379;">&quot;pending&quot;</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:active</span>, -&gt; { where.not(status: <span style="color: #98c379;">&quot;cancelled&quot;</span>) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:active</span>, -&gt; { where.not(status: <span style="color: #98c379;">&quot;cancelled&quot;</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">9</div>
@@ -1054,17 +1054,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> confirm!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> confirm!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    update!(status: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;confirmed&quot;</span>)</span></div>
+              <div class="cov-line-code">    update!(status: <span style="color: #98c379;">&quot;confirmed&quot;</span>)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
@@ -1074,22 +1074,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">14</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> ship!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> ship!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">15</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Cannot</span> ship unconfirmed order&quot;</span> <span style="color: #c678dd;">unless</span> status == <span style="color: #98c379;">&quot;confirmed&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: #98c379;">&quot;Cannot ship unconfirmed order&quot;</span> <span style="color: #c678dd;">unless</span> status == <span style="color: #98c379;">&quot;confirmed&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    update!(status: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;shipped&quot;</span>, shipped_at: <span style="color: var(--cyan);">Time</span>.current)</span></div>
+              <div class="cov-line-code">    update!(status: <span style="color: #98c379;">&quot;shipped&quot;</span>, shipped_at: <span style="color: var(--cyan);">Time</span>.current)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">18</div>
@@ -1099,22 +1099,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> deliver!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> deliver!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Cannot</span> deliver unshipped order&quot;</span> <span style="color: #c678dd;">unless</span> status == <span style="color: #98c379;">&quot;shipped&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: #98c379;">&quot;Cannot deliver unshipped order&quot;</span> <span style="color: #c678dd;">unless</span> status == <span style="color: #98c379;">&quot;shipped&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">21</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    update!(status: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;delivered&quot;</span>)</span></div>
+              <div class="cov-line-code">    update!(status: <span style="color: #98c379;">&quot;delivered&quot;</span>)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">22</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">23</div>
@@ -1124,17 +1124,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">24</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> cancel!(reason: <span style="color: #c678dd;">nil</span>)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> cancel!(reason: <span style="color: #c678dd;">nil</span>)</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">25</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    update!(status: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cancelled&quot;</span>, notes: reason)</span></div>
+              <div class="cov-line-code">    update!(status: <span style="color: #98c379;">&quot;cancelled&quot;</span>, notes: reason)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">26</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">27</div>
@@ -1144,17 +1144,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">28</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> cod?</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> cod?</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">29</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    payment_method == <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cod&quot;</span></span></div>
+              <div class="cov-line-code">    payment_method == <span style="color: #98c379;">&quot;cod&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">30</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">31</div>
@@ -1164,7 +1164,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">32</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> recalculate_total!</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> recalculate_total!</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">33</div>
@@ -1174,7 +1174,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">34</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">35</div>
@@ -1184,17 +1184,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">36</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> awaiting_cod_confirmation?</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> awaiting_cod_confirmation?</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">37</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    cod? &amp;&amp; status == <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;pending&quot;</span></span></div>
+              <div class="cov-line-code">    cod? &amp;&amp; status == <span style="color: #98c379;">&quot;pending&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">38</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">39</div>
@@ -1204,27 +1204,27 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">40</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> handle_cod_timeout</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> handle_cod_timeout</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">41</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> <span style="color: #c678dd;">unless</span> payment_method == <span style="color: #98c379;">&quot;cod&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">return</span> <span style="color: #c678dd;">unless</span> payment_method == <span style="color: #98c379;">&quot;cod&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">42</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    cancel!(reason: <span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;cod_timeout&quot;</span>) <span style="color: #c678dd;">if</span> awaiting_cod_confirmation?</span></div>
+              <div class="cov-line-code">    cancel!(reason: <span style="color: #98c379;">&quot;cod_timeout&quot;</span>) <span style="color: #c678dd;">if</span> awaiting_cod_confirmation?</div>
             </div>
                                     <div class="cov-line cov-line-uncovered">
               <div class="cov-line-num">43</div>
               <div class="cov-line-hits">0</div>
-              <div class="cov-line-code">    notify_cs_team(<span style="color: <span style="color: var(--text-muted);">#98c379;">:cod_timeout_alert</span>)</span></div>
+              <div class="cov-line-code">    notify_cs_team(<span style="color: #98c379;">:cod_timeout_alert</span>)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">44</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">45</div>
@@ -1244,7 +1244,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">48</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> notify_cs_team(alert_type)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> notify_cs_team(alert_type)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">49</div>
@@ -1254,18 +1254,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">50</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">51</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/controllers/application_controller.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/controllers/application_controller.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/controllers/application_controller.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/controllers/application_controller.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1283,18 +1283,18 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">ApplicationController</span> &lt; <span style="color: var(--cyan);">ActionController</span>:<span style="color: #98c379;">:<span style="color: var(--cyan);">API</span></span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">ApplicationController</span> &lt; <span style="color: var(--cyan);">ActionController::API</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/jobs/application_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/application_job.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/jobs/application_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/application_job.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1312,17 +1312,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">ApplicationJob</span> &lt; <span style="color: var(--cyan);">ActiveJob</span>:<span style="color: #98c379;">:<span style="color: var(--cyan);">Base</span></span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">ApplicationJob</span> &lt; <span style="color: var(--cyan);">ActiveJob::Base</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: var(--text-muted);"># <span style="color: var(--cyan);">Automatically</span> retry jobs that encountered a deadlock</span></div>
+              <div class="cov-line-code">  <span style="color: var(--text-muted);"># Automatically retry jobs that encountered a deadlock</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: var(--text-muted);"># retry_on <span style="color: var(--cyan);">ActiveRecord</span>:<span style="color: #98c379;">:<span style="color: var(--cyan);">Deadlocked</span></span></span></div>
+              <div class="cov-line-code">  <span style="color: var(--text-muted);"># retry_on ActiveRecord::Deadlocked</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">4</div>
@@ -1332,23 +1332,23 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: var(--text-muted);"># <span style="color: var(--cyan);">Most</span> jobs are safe to ignore <span style="color: #c678dd;">if</span> the underlying records are no longer available</span></div>
+              <div class="cov-line-code">  <span style="color: var(--text-muted);"># Most jobs are safe to ignore if the underlying records are no longer available</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: var(--text-muted);"># discard_on <span style="color: var(--cyan);">ActiveJob</span>:<span style="color: #98c379;">:<span style="color: var(--cyan);">DeserializationError</span></span></span></div>
+              <div class="cov-line-code">  <span style="color: var(--text-muted);"># discard_on ActiveJob::DeserializationError</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/jobs/inventory_sync_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/inventory_sync_job.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/jobs/inventory_sync_job.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/jobs/inventory_sync_job.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1366,12 +1366,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">InventorySyncJob</span> &lt; <span style="color: var(--cyan);">ApplicationJob</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">InventorySyncJob</span> &lt; <span style="color: var(--cyan);">ApplicationJob</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  queue_as <span style="color: <span style="color: var(--text-muted);">#98c379;">:default</span></span></div>
+              <div class="cov-line-code">  queue_as <span style="color: #98c379;">:default</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
@@ -1381,7 +1381,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> perform(pharmacy_id)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> perform(pharmacy_id)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
@@ -1391,7 +1391,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> <span style="color: #c678dd;">unless</span> pharmacy.active?</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">return</span> <span style="color: #c678dd;">unless</span> pharmacy.active?</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
@@ -1406,7 +1406,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">9</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    products.each <span style="color: <span style="color: var(--text-muted);">#c678dd;">do</span> |product|</span></div>
+              <div class="cov-line-code">    products.each <span style="color: #c678dd;">do</span> |product|</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
@@ -1416,12 +1416,12 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
@@ -1441,12 +1441,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> sync_product(pharmacy, product)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> sync_product(pharmacy, product)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: var(--text-muted);"># <span style="color: var(--cyan);">Simulate</span> external <span style="color: var(--cyan);">API</span> sync</span></div>
+              <div class="cov-line-code">    <span style="color: var(--text-muted);"># Simulate external API sync</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">18</div>
@@ -1456,18 +1456,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/models/application_record.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/application_record.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/models/application_record.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/application_record.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1485,23 +1485,23 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">ApplicationRecord</span> &lt; <span style="color: var(--cyan);">ActiveRecord</span>:<span style="color: #98c379;">:<span style="color: var(--cyan);">Base</span></span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">ApplicationRecord</span> &lt; <span style="color: var(--cyan);">ActiveRecord::Base</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  primary_abstract_class</div>
+              <div class="cov-line-code">  primary_abstract_<span style="color: #c678dd;">class</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/models/order_item.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order_item.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/models/order_item.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/order_item.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1519,17 +1519,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">OrderItem</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">OrderItem</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  belongs_to <span style="color: <span style="color: var(--text-muted);">#98c379;">:order</span></span></div>
+              <div class="cov-line-code">  belongs_to <span style="color: #98c379;">:order</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  belongs_to <span style="color: <span style="color: var(--text-muted);">#98c379;">:product</span></span></div>
+              <div class="cov-line-code">  belongs_to <span style="color: #98c379;">:product</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">4</div>
@@ -1539,12 +1539,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:quantity</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:quantity</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:unit_price_cents</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:unit_price_cents</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
@@ -1554,7 +1554,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  after_save <span style="color: <span style="color: var(--text-muted);">#98c379;">:recalculate_order_total</span></span></div>
+              <div class="cov-line-code">  after_save <span style="color: #98c379;">:recalculate_order_total</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">9</div>
@@ -1564,7 +1564,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> subtotal_cents</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> subtotal_cents</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
@@ -1574,7 +1574,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
@@ -1594,7 +1594,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> recalculate_order_total</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> recalculate_order_total</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">17</div>
@@ -1604,18 +1604,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">18</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/models/pharmacy.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/pharmacy.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/models/pharmacy.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/pharmacy.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1633,17 +1633,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">Pharmacy</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">Pharmacy</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:name</span>, presence: <span style="color: #c678dd;">true</span></span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:name</span>, presence: <span style="color: #c678dd;">true</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:code</span>, presence: <span style="color: #c678dd;">true</span>, uniqueness: <span style="color: #c678dd;">true</span></span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:code</span>, presence: <span style="color: #c678dd;">true</span>, uniqueness: <span style="color: #c678dd;">true</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">4</div>
@@ -1653,12 +1653,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:active</span>, -&gt; { where(active: <span style="color: #c678dd;">true</span>) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:active</span>, -&gt; { where(active: <span style="color: #c678dd;">true</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:auto_accept</span>, -&gt; { where(auto_accept_orders: <span style="color: #c678dd;">true</span>) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:auto_accept</span>, -&gt; { where(auto_accept_orders: <span style="color: #c678dd;">true</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">7</div>
@@ -1668,7 +1668,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> accepts_orders?</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> accepts_orders?</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">9</div>
@@ -1678,18 +1678,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/models/product.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/product.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/models/product.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/models/product.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1707,27 +1707,27 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">Product</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">Product</span> &lt; <span style="color: var(--cyan);">ApplicationRecord</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:name</span>, presence: <span style="color: #c678dd;">true</span></span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:name</span>, presence: <span style="color: #c678dd;">true</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:minsan_code</span>, presence: <span style="color: #c678dd;">true</span>, uniqueness: <span style="color: #c678dd;">true</span></span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:minsan_code</span>, presence: <span style="color: #c678dd;">true</span>, uniqueness: <span style="color: #c678dd;">true</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:price_cents</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:price_cents</span>, presence: <span style="color: #c678dd;">true</span>, numericality: { greater_than: 0 }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">5</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  validates <span style="color: <span style="color: var(--text-muted);">#98c379;">:stock</span>, numericality: { greater_than_or_equal_to: 0 }</span></div>
+              <div class="cov-line-code">  validates <span style="color: #98c379;">:stock</span>, numericality: { greater_than_or_equal_to: 0 }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">6</div>
@@ -1737,17 +1737,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">7</div>
               <div class="cov-line-hits">3</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:active</span>, -&gt; { where(active: <span style="color: #c678dd;">true</span>) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:active</span>, -&gt; { where(active: <span style="color: #c678dd;">true</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits">3</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:in_stock</span>, -&gt; { where(&quot;stock &gt; 0&quot;) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:in_stock</span>, -&gt; { where(<span style="color: #98c379;">&quot;stock &gt; 0&quot;</span>) }</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">9</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">  scope <span style="color: <span style="color: var(--text-muted);">#98c379;">:by_category</span>, -&gt;(cat) { where(category: cat) }</span></div>
+              <div class="cov-line-code">  scope <span style="color: #98c379;">:by_category</span>, -&gt;(cat) { where(category: cat) }</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">10</div>
@@ -1757,17 +1757,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> display_price</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> display_price</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">12</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    format(<span style="color: <span style="color: var(--text-muted);">#98c379;">&quot;%.2f&quot;</span>, price_cents / 100.0)</span></div>
+              <div class="cov-line-code">    format(<span style="color: #98c379;">&quot;%.2f&quot;</span>, price_cents / 100.0)</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">13</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">14</div>
@@ -1777,7 +1777,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">15</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> in_stock?</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> in_stock?</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
@@ -1787,7 +1787,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">18</div>
@@ -1797,12 +1797,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">19</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> reserve!(quantity)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> reserve!(quantity)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">raise</span> <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Insufficient</span> stock&quot;</span> <span style="color: #c678dd;">if</span> stock &lt; quantity</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">raise</span> <span style="color: #98c379;">&quot;Insufficient stock&quot;</span> <span style="color: #c678dd;">if</span> stock &lt; quantity</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">21</div>
@@ -1812,18 +1812,18 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">22</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">23</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
       </tr>
                   <tr class="cov-file-row" data-cov-pct="100.0" style="display:none;">
-        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/shipping_calculator.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/shipping_calculator.rb</a></div></td>
+        <td><div class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/shipping_calculator.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/shipping_calculator.rb</a></div></td>
         <td>
           <div class="cov-bar">
             <div class="cov-bar-track"><div class="cov-bar-fill" style="width:100.0%; background: var(--green);"></div></div>
@@ -1841,22 +1841,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">1</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">class</span> <span style="color: var(--cyan);">ShippingCalculator</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">class</span> <span style="color: var(--cyan);">ShippingCalculator</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">2</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  STANDARD_RATE = 499 <span style="color: var(--text-muted);"># cents</span></div>
+              <div class="cov-line-code">  STANDARD_<span style="color: var(--cyan);">RATE</span> = 499 <span style="color: var(--text-muted);"># cents</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">3</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  EXPRESS_RATE = 999</div>
+              <div class="cov-line-code">  EXPRESS_<span style="color: var(--cyan);">RATE</span> = 999</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">4</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  FREE_THRESHOLD = 4900 <span style="color: var(--text-muted);"># free shipping above 49 <span style="color: var(--cyan);">EUR</span></span></div>
+              <div class="cov-line-code">  FREE_<span style="color: var(--cyan);">THRESHOLD</span> = 4900 <span style="color: var(--text-muted);"># free shipping above 49 EUR</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">5</div>
@@ -1866,7 +1866,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">6</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> initialize(order)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> initialize(order)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">7</div>
@@ -1876,7 +1876,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">8</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">9</div>
@@ -1886,12 +1886,12 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">10</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate(method: <span style="color: #98c379;">:standard</span>)</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> calculate(method: <span style="color: #98c379;">:standard</span>)</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">11</div>
               <div class="cov-line-hits">5</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">return</span> { cost: 0, method: <span style="color: #98c379;">:free</span> } <span style="color: #c678dd;">if</span> qualifies_for_free_shipping?</span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">return</span> { cost: 0, method: <span style="color: #98c379;">:free</span> } <span style="color: #c678dd;">if</span> qualifies_for_free_shipping?</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">12</div>
@@ -1906,22 +1906,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">14</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    when <span style="color: <span style="color: var(--text-muted);">#98c379;">:standard</span> then calculate_standard</span></div>
+              <div class="cov-line-code">    when <span style="color: #98c379;">:standard</span> then calculate_standard</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">15</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    when <span style="color: <span style="color: var(--text-muted);">#98c379;">:express</span> then calculate_express</span></div>
+              <div class="cov-line-code">    when <span style="color: #98c379;">:express</span> then calculate_express</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">16</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">else</span> <span style="color: #c678dd;">raise</span> <span style="color: #98c379;">&quot;<span style="color: var(--cyan);">Unknown</span> shipping method: #{method}&quot;</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">else</span> <span style="color: #c678dd;">raise</span> <span style="color: #98c379;">&quot;Unknown shipping method: #{method}&quot;</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">17</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">    <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">18</div>
@@ -1936,7 +1936,7 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">20</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">21</div>
@@ -1956,17 +1956,17 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">24</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> qualifies_for_free_shipping?</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> qualifies_for_free_shipping?</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">25</div>
               <div class="cov-line-hits">5</div>
-              <div class="cov-line-code">    @order.total_cents.to_i &gt;= FREE_THRESHOLD</div>
+              <div class="cov-line-code">    @order.total_cents.to_i &gt;= FREE_<span style="color: var(--cyan);">THRESHOLD</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">26</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">27</div>
@@ -1976,27 +1976,27 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">28</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate_standard</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> calculate_standard</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">29</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">    <span style="color: var(--text-muted);"># <span style="color: var(--cyan);">Simulate</span> <span style="color: var(--cyan);">API</span> call latency</span></div>
+              <div class="cov-line-code">    <span style="color: var(--text-muted);"># Simulate API call latency</span></div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">30</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    sleep(0.01) <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> <span style="color: var(--cyan);">ENV</span>[<span style="color: #98c379;">&quot;SIMULATE_LATENCY&quot;</span>]</span></div>
+              <div class="cov-line-code">    sleep(0.01) <span style="color: #c678dd;">if</span> <span style="color: var(--cyan);">ENV</span>[<span style="color: #98c379;">&quot;SIMULATE_LATENCY&quot;</span>]</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">31</div>
               <div class="cov-line-hits">2</div>
-              <div class="cov-line-code">    STANDARD_RATE + weight_surcharge</div>
+              <div class="cov-line-code">    STANDARD_<span style="color: var(--cyan);">RATE</span> + weight_surcharge</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">32</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">33</div>
@@ -2006,22 +2006,22 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">34</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> calculate_express</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> calculate_express</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">35</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    sleep(0.01) <span style="color: <span style="color: var(--text-muted);">#c678dd;">if</span> <span style="color: var(--cyan);">ENV</span>[<span style="color: #98c379;">&quot;SIMULATE_LATENCY&quot;</span>]</span></div>
+              <div class="cov-line-code">    sleep(0.01) <span style="color: #c678dd;">if</span> <span style="color: var(--cyan);">ENV</span>[<span style="color: #98c379;">&quot;SIMULATE_LATENCY&quot;</span>]</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">36</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">    EXPRESS_RATE + weight_surcharge</div>
+              <div class="cov-line-code">    EXPRESS_<span style="color: var(--cyan);">RATE</span> + weight_surcharge</div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">37</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">38</div>
@@ -2031,7 +2031,7 @@
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">39</div>
               <div class="cov-line-hits">1</div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">def</span> weight_surcharge</span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">def</span> weight_surcharge</div>
             </div>
                                     <div class="cov-line cov-line-covered">
               <div class="cov-line-num">40</div>
@@ -2046,12 +2046,12 @@
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">42</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code">  <span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code">  <span style="color: #c678dd;">end</span></div>
             </div>
                                     <div class="cov-line cov-line-none">
               <div class="cov-line-num">43</div>
               <div class="cov-line-hits"></div>
-              <div class="cov-line-code"><span style="color: <span style="color: var(--text-muted);">#c678dd;">end</span></span></div>
+              <div class="cov-line-code"><span style="color: #c678dd;">end</span></div>
             </div>
                       </div>
         </td>
@@ -2080,122 +2080,122 @@
     </thead>
     <tbody>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate adds weight surcharge for large orders</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/shipping_calculator_spec.rb</a>:26</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem#subtotal_cents multiplies quantity by unit price</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_item_spec.rb</a>:5</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.05s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform syncs products for active pharmacy</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/jobs/inventory_sync_job_spec.rb</a>:13</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/jobs/inventory_sync_job_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/jobs/inventory_sync_job_spec.rb</a>:13</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize returns the cheapest pharmacy</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/cart_optimizer_spec.rb</a>:6</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.02s</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate adds weight surcharge for large orders</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/services/shipping_calculator_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/services/shipping_calculator_spec.rb</a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.03s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">OrderItem#subtotal_cents multiplies quantity by unit price</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_item_spec.rb#L5" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_item_spec.rb</a>:5</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.02s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Order#recalculate_total! sums order item subtotals</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_spec.rb#L51" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:51</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">OrderItem callback recalculates order total on save</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_item_spec.rb</a>:13</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! decrements stock</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L69" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:69</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">Order#recalculate_total! sums order item subtotals</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_spec.rb#L51" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_spec.rb</a>:51</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">InventorySyncJob#perform skips inactive pharmacies</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/jobs/inventory_sync_job_spec.rb</a>:17</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/jobs/inventory_sync_job_spec.rb#L17" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/jobs/inventory_sync_job_spec.rb</a>:17</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .by_category filters by category</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L44" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:44</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Order validations requires customer_email</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_spec.rb#L6" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:6</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize returns the cheapest pharmacy</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/services/cart_optimizer_spec.rb#L6" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/services/cart_optimizer_spec.rb</a>:6</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">CartOptimizer#optimize raises when no pharmacies available</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/services/cart_optimizer_spec.rb</a>:16</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! raises when insufficient stock</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L75" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:75</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">OrderItem callback recalculates order total on save</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_item_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_item_spec.rb</a>:13</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .in_stock returns products with stock &gt; 0</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L38" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:38</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/services/cart_optimizer_spec.rb#L16" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/services/cart_optimizer_spec.rb</a>:16</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.01s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">Order#ship! ships confirmed orders</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:26</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_spec.rb#L26" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_spec.rb</a>:26</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! decrements stock</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L69" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:69</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">Product scopes .active returns only active products</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L32" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:32</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L32" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:32</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .by_category filters by category</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L44" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:44</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product scopes .in_stock returns products with stock &gt; 0</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L38" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:38</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">Order#deliver! delivers shipped orders</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_spec.rb#L40" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:40</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_spec.rb#L40" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_spec.rb</a>:40</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">Order#confirm! sets status to confirmed</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/order_spec.rb#L18" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/order_spec.rb</a>:18</span></td>
-        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
-        <td><span class="badge badge-pass">pass</span></td>
-      </tr>
-            <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Pharmacy validations requires unique code</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/pharmacy_spec.rb#L14" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/pharmacy_spec.rb</a>:14</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/order_spec.rb#L18" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/order_spec.rb</a>:18</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
         <td style="color: var(--text-primary); max-width: 400px;">Product validations requires unique minsan_code</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L19" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:19</span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L19" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:19</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
             <tr>
-        <td style="color: var(--text-primary); max-width: 400px;">Product#in_stock? returns false when stock is 0</td>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/./spec/models/product_spec.rb#L63" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">./spec/models/product_spec.rb</a>:63</span></td>
+        <td style="color: var(--text-primary); max-width: 400px;">Pharmacy validations requires unique code</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/pharmacy_spec.rb#L14" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/pharmacy_spec.rb</a>:14</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate returns standard shipping cost</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/services/shipping_calculator_spec.rb#L7" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/services/shipping_calculator_spec.rb</a>:7</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">ShippingCalculator#calculate returns express shipping cost</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/services/shipping_calculator_spec.rb#L13" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/services/shipping_calculator_spec.rb</a>:13</span></td>
+        <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
+        <td><span class="badge badge-pass">pass</span></td>
+      </tr>
+            <tr>
+        <td style="color: var(--text-primary); max-width: 400px;">Product#reserve! raises when insufficient stock</td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/spec/models/product_spec.rb#L75" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">spec/models/product_spec.rb</a>:75</span></td>
         <td><span class="num" style="color: var(--yellow); font-weight: 700;">0.0s</span></td>
         <td><span class="badge badge-pass">pass</span></td>
       </tr>
@@ -2280,13 +2280,13 @@
     </thead>
     <tbody>
             <tr>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></span></td>
         <td><span class="num" style="color: var(--red);">29.2%</span></td>
         <td><span class="num">11 commits</span></td>
         <td><span class="risk-score" style="background: var(--red-dim); color: var(--red);">779</span></td>
       </tr>
             <tr>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/payment_service.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/payment_service.rb</a></span></td>
         <td><span class="num" style="color: var(--yellow);">60.0%</span></td>
         <td><span class="num">6 commits</span></td>
         <td><span class="risk-score" style="background: var(--yellow-dim); color: var(--yellow);">240</span></td>
@@ -2332,7 +2332,7 @@
     </thead>
     <tbody>
             <tr>
-        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/e7e50d2/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></span></td>
+        <td><span class="file-path"><a href="https://github.com/nicolasacchi/test_report_kit_demo/blob/1575861/app/services/pricing_engine.rb" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border);">app/services/pricing_engine.rb</a></span></td>
         <td><span class="num" style="color: var(--red);">11 commits</span></td>
       </tr>
           </tbody>
@@ -2343,7 +2343,7 @@
 
 </div>
 
-<script type="application/json" id="report-data">{"diff_coverage":null,"file_coverage":[{"path":"app/services/pricing_engine.rb","total_lines":24,"covered_lines":7,"missed_lines":17,"coverage_pct":29.2,"branch_coverage_pct":0.0,"churn":11,"risk_score":779},{"path":"app/services/payment_service.rb","total_lines":25,"covered_lines":15,"missed_lines":10,"coverage_pct":60.0,"branch_coverage_pct":35.7,"churn":6,"risk_score":240},{"path":"app/services/cart_optimizer.rb","total_lines":28,"covered_lines":20,"missed_lines":8,"coverage_pct":71.4,"branch_coverage_pct":33.3,"churn":6,"risk_score":172},{"path":"app/models/order.rb","total_lines":28,"covered_lines":22,"missed_lines":6,"coverage_pct":78.6,"branch_coverage_pct":37.5,"churn":6,"risk_score":128},{"path":"app/controllers/application_controller.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/application_job.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/inventory_sync_job.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/models/application_record.rb","total_lines":2,"covered_lines":2,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/order_item.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":2,"risk_score":0},{"path":"app/models/pharmacy.rb","total_lines":7,"covered_lines":7,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/product.rb","total_lines":15,"covered_lines":15,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/services/shipping_calculator.rb","total_lines":25,"covered_lines":25,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":81.8,"churn":1,"risk_score":0}],"factory_health":{"total_count":67,"total_top_level_count":55,"total_time":"00:00.156","total_uniq_factories":4,"stats":[{"name":"product","total_count":35,"top_level_count":24,"cascade_ratio":1.5,"total_time":0.08530495900000545,"top_level_time":0.06770000700001333},{"name":"order","total_count":15,"top_level_count":14,"cascade_ratio":1.1,"total_time":0.02677733000001581,"top_level_time":0.020183694000010632},{"name":"order_item","total_count":11,"top_level_count":11,"cascade_ratio":1.0,"total_time":0.05205410199998539,"top_level_time":0.05205410199998539},{"name":"pharmacy","total_count":6,"top_level_count":6,"cascade_ratio":1.0,"total_time":0.01681935700000281,"top_level_time":0.01681935700000281}],"suggestions":[]},"insights":{"high_risk":[{"path":"app/services/pricing_engine.rb","total_lines":24,"covered_lines":7,"missed_lines":17,"coverage_pct":29.2,"branch_coverage_pct":0.0,"churn":11,"risk_score":779},{"path":"app/services/payment_service.rb","total_lines":25,"covered_lines":15,"missed_lines":10,"coverage_pct":60.0,"branch_coverage_pct":35.7,"churn":6,"risk_score":240}],"over_tested":[],"false_security":[],"untested_hot_paths":[{"path":"app/services/pricing_engine.rb","churn":11,"coverage_pct":29.2}]}}</script>
+<script type="application/json" id="report-data">{"diff_coverage":null,"file_coverage":[{"path":"app/services/pricing_engine.rb","total_lines":24,"covered_lines":7,"missed_lines":17,"coverage_pct":29.2,"branch_coverage_pct":0.0,"churn":11,"risk_score":779},{"path":"app/services/payment_service.rb","total_lines":25,"covered_lines":15,"missed_lines":10,"coverage_pct":60.0,"branch_coverage_pct":35.7,"churn":6,"risk_score":240},{"path":"app/services/cart_optimizer.rb","total_lines":28,"covered_lines":20,"missed_lines":8,"coverage_pct":71.4,"branch_coverage_pct":33.3,"churn":6,"risk_score":172},{"path":"app/models/order.rb","total_lines":28,"covered_lines":22,"missed_lines":6,"coverage_pct":78.6,"branch_coverage_pct":37.5,"churn":6,"risk_score":128},{"path":"app/controllers/application_controller.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/application_job.rb","total_lines":1,"covered_lines":1,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/jobs/inventory_sync_job.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/models/application_record.rb","total_lines":2,"covered_lines":2,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/order_item.rb","total_lines":11,"covered_lines":11,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":2,"risk_score":0},{"path":"app/models/pharmacy.rb","total_lines":7,"covered_lines":7,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":null,"churn":1,"risk_score":0},{"path":"app/models/product.rb","total_lines":15,"covered_lines":15,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":100.0,"churn":1,"risk_score":0},{"path":"app/services/shipping_calculator.rb","total_lines":25,"covered_lines":25,"missed_lines":0,"coverage_pct":100.0,"branch_coverage_pct":81.8,"churn":1,"risk_score":0}],"factory_health":{"total_count":67,"total_top_level_count":55,"total_time":"00:00.161","total_uniq_factories":4,"stats":[{"name":"product","total_count":35,"top_level_count":24,"cascade_ratio":1.5,"total_time":0.06655991700002772,"top_level_time":0.04624841400002566},{"name":"order","total_count":15,"top_level_count":14,"cascade_ratio":1.1,"total_time":0.03840049200000095,"top_level_time":0.018426112000000217},{"name":"order_item","total_count":11,"top_level_count":11,"cascade_ratio":1.0,"total_time":0.0841012699999979,"top_level_time":0.0841012699999979},{"name":"pharmacy","total_count":6,"top_level_count":6,"cascade_ratio":1.0,"total_time":0.012354675000004534,"top_level_time":0.012354675000004534}],"suggestions":[]},"insights":{"high_risk":[{"path":"app/services/pricing_engine.rb","total_lines":24,"covered_lines":7,"missed_lines":17,"coverage_pct":29.2,"branch_coverage_pct":0.0,"churn":11,"risk_score":779},{"path":"app/services/payment_service.rb","total_lines":25,"covered_lines":15,"missed_lines":10,"coverage_pct":60.0,"branch_coverage_pct":35.7,"churn":6,"risk_score":240}],"over_tested":[],"false_security":[],"untested_hot_paths":[{"path":"app/services/pricing_engine.rb","churn":11,"coverage_pct":29.2}]}}</script>
 <script>
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
