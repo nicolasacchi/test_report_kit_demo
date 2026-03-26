@@ -1,7 +1,7 @@
 {
   "days": 90,
   "files": {
-    "README.md": 2,
+    "README.md": 3,
     "Gemfile": 9,
     ".github/workflows/test-report.yml": 2,
     "app/services/payment_service.rb": 6,
