@@ -1,13 +1,13 @@
 {
   "days": 90,
   "files": {
+    ".github/workflows/test-report.yml": 2,
     "Gemfile": 2,
     "app/services/payment_service.rb": 6,
     ".dockerignore": 1,
     ".gitattributes": 1,
     ".github/dependabot.yml": 1,
     ".github/workflows/ci.yml": 1,
-    ".github/workflows/test-report.yml": 1,
     ".rubocop.yml": 1,
     "README.md": 1,
     "db/seeds.rb": 1,
