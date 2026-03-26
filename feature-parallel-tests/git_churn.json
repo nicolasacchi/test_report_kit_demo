@@ -1,7 +1,7 @@
 {
   "days": 90,
   "files": {
-    ".github/workflows/test-report-parallel.yml": 6,
+    ".github/workflows/test-report-parallel.yml": 7,
     "Gemfile": 10,
     "README.md": 2,
     ".github/workflows/test-report.yml": 2,

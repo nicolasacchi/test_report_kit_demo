@@ -1,33 +1,45 @@
 {
   "event": "factory.create",
+  "total_time": "00:00.170",
+  "total_run_time": "00:00.234",
+  "total_percentage": 72.96,
   "total_events": 55,
   "suites": [
     {
-      "description": "EventProf results for factory.create\n\nTotal time: 00:00.113 of 00:00.185",
-      "location": "60.95%)\nTotal events: 32\n\nTop 5 slowest suites (by time):\n\nOrderItem (./spec/models/order_item_spec.rb:3",
-      "time": "00:00.052",
+      "description": "EventProf results for factory.create\n\nTotal time: 00:00.170 of 00:00.234",
+      "location": "72.96%)\nTotal events: 55\n\nTop 5 slowest suites (by time):\n\nOrderItem (./spec/models/order_item_spec.rb:3",
+      "time": "00:00.059",
       "event_count": 3,
       "example_count": 2,
-      "run_time": "00:00.058",
-      "percentage": 88.95
-    },
-    {
-      "description": "Order",
-      "location": "./spec/models/order_spec.rb:3",
-      "time": "00:00.024",
-      "event_count": 7,
-      "example_count": 7,
-      "run_time": "00:00.056",
-      "percentage": 43.66
+      "run_time": "00:00.066",
+      "percentage": 89.89
     },
     {
       "description": "InventorySyncJob",
       "location": "./spec/jobs/inventory_sync_job_spec.rb:3",
-      "time": "00:00.019",
+      "time": "00:00.033",
       "event_count": 12,
       "example_count": 2,
-      "run_time": "00:00.024",
-      "percentage": 80.64
+      "run_time": "00:00.038",
+      "percentage": 85.15
+    },
+    {
+      "description": "ShippingCalculator",
+      "location": "./spec/services/shipping_calculator_spec.rb:3",
+      "time": "00:00.030",
+      "event_count": 12,
+      "example_count": 5,
+      "run_time": "00:00.035",
+      "percentage": 84.12
+    },
+    {
+      "description": "Order",
+      "location": "./spec/models/order_spec.rb:3",
+      "time": "00:00.015",
+      "event_count": 7,
+      "example_count": 7,
+      "run_time": "00:00.034",
+      "percentage": 46.56
     },
     {
       "description": "Product",
@@ -35,44 +47,8 @@
       "time": "00:00.014",
       "event_count": 9,
       "example_count": 13,
-      "run_time": "00:00.032",
-      "percentage": 46.58
-    },
-    {
-      "description": "Pharmacy",
-      "location": "./spec/models/pharmacy_spec.rb:3",
-      "time": "00:00.001",
-      "event_count": 1,
-      "example_count": 6,
-      "run_time": "00:00.014",
-      "percentage": 12.41
-    },
-    {
-      "description": "EventProf results for factory.create\n\nTotal time: 00:00.104 of 00:00.139",
-      "location": "74.99%)\nTotal events: 23\n\nTop 5 slowest suites (by time):\n\nShippingCalculator (./spec/services/shipping_calculator_spec.rb:3",
-      "time": "00:00.045",
-      "event_count": 12,
-      "example_count": 5,
-      "run_time": "00:00.069",
-      "percentage": 65.71
-    },
-    {
-      "description": "PaymentService",
-      "location": "./spec/services/payment_service_spec.rb:3",
-      "time": "00:00.031",
-      "event_count": 3,
-      "example_count": 3,
-      "run_time": "00:00.038",
-      "percentage": 81.5
-    },
-    {
-      "description": "CartOptimizer",
-      "location": "./spec/services/cart_optimizer_spec.rb:3",
-      "time": "00:00.027",
-      "event_count": 8,
-      "example_count": 2,
-      "run_time": "00:00.031",
-      "percentage": 87.37
+      "run_time": "00:00.030",
+      "percentage": 47.34
     }
   ]
 }
