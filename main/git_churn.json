@@ -1,8 +1,8 @@
 {
   "days": 90,
   "files": {
+    "Gemfile": 3,
     ".github/workflows/test-report.yml": 2,
-    "Gemfile": 2,
     "app/services/payment_service.rb": 6,
     ".dockerignore": 1,
     ".gitattributes": 1,
