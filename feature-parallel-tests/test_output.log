@@ -1,0 +1,44 @@
+[TEST PROF INFO] FactoryProf enabled (simple mode)
+[TEST PROF INFO] RSpecDissect enabled
+[TEST PROF INFO] EventProf enabled (factory.create)
+........................................[TEST PROF INFO] RSpecDissect report
+
+Total time: 00:00.246
+Total setup time: 00:00.046
+
+
+Top 5 slowest suites by setup time:
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.040[22m of 00:00.047 / 2 (before: 00:00.034, before let: 00:00.000, lazy let: 00:00.006)
+ ↳ pharmacy – 00:00.006 (1)
+
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.003[22m of 00:00.035 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.003)
+ ↳ order – 00:00.003 (3)
+
+Order (./spec/models/order_spec.rb:3) – [1m00:00.001[22m of 00:00.076 / 7 (before: 00:00.001, before let: 00:00.000, lazy let: 00:00.000)
+Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.029 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.012 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+
+[TEST PROF INFO] EventProf results for factory.create
+
+Total time: 00:00.166 of 00:00.253 (65.91%)
+Total events: 55
+
+Top 5 slowest suites (by time):
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.041 (12 / 2) of 00:00.047 (86.62%)
+Order (./spec/models/order_spec.rb:3) – 00:00.039 (7 / 7) of 00:00.078 (50.84%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.030 (12 / 5) of 00:00.036 (83.4%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.022 (3 / 2) of 00:00.025 (88.0%)
+Product (./spec/models/product_spec.rb:3) – 00:00.014 (9 / 13) of 00:00.031 (47.44%)
+
+
+
+Finished in 0.25503 seconds (files took 1.98 seconds to load)
+40 examples, 0 failures
+
+[TEST PROF INFO] Profile results to JSON: tmp/test_prof/test-prof.result.json
+Coverage report generated for RSpec to /home/runner/work/test_report_kit_demo/test_report_kit_demo/coverage.
+Line Coverage: 76.97% (137 / 178)
+Branch Coverage: 43.4% (23 / 53)
+Coverage report generated for RSpec to /home/runner/work/test_report_kit_demo/test_report_kit_demo/coverage/coverage.json. 137 / 178 LOC (76.97%) covered.

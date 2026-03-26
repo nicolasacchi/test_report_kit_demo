@@ -1,7 +1,7 @@
 {
-  "coverage_pct": null,
+  "coverage_pct": 77.0,
   "coverage_delta": null,
-  "branch_coverage_pct": null,
+  "branch_coverage_pct": 43.4,
   "diff_coverage_pct": null,
   "diff_coverage_passed": null,
   "diff_coverage_threshold": 90,
@@ -10,22 +10,22 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.305,
+  "duration_seconds": 0.255027451,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
-  "slowest_test_name": "OrderItem#subtotal_cents multiplies quantity by unit price",
-  "slowest_test_duration": 0.07,
+  "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
+  "slowest_test_duration": 0.04,
   "slowest_tests": [
     {
-      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
-      "file": "./spec/models/order_item_spec.rb:5",
-      "duration": 0.07
+      "description": "InventorySyncJob#perform syncs products for active pharmacy",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "duration": 0.04
     },
     {
-      "description": "CartOptimizer#optimize returns the cheapest pharmacy",
-      "file": "./spec/services/cart_optimizer_spec.rb:6",
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:51",
       "duration": 0.03
     },
     {
@@ -34,21 +34,37 @@
       "duration": 0.03
     },
     {
-      "description": "PaymentService#authorize! authorizes a valid order",
-      "file": "./spec/services/payment_service_spec.rb:5",
-      "duration": 0.03
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.02
     },
     {
-      "description": "CartOptimizer#optimize raises when no pharmacies available",
-      "file": "./spec/services/cart_optimizer_spec.rb:16",
-      "duration": 0.02
+      "description": "Order#ship! ships confirmed orders",
+      "file": "./spec/models/order_spec.rb:26",
+      "duration": 0.01
     }
   ],
-  "total_factory_creates": 134,
-  "top_risks": [],
-  "peak_memory_mb": 81,
-  "cpu_user_seconds": 4.0,
-  "generated_at": "2026-03-26T20:07:09+00:00",
+  "total_factory_creates": 67,
+  "top_risks": [
+    {
+      "file": "app/services/pricing_engine.rb",
+      "coverage": 29.2,
+      "churn": 11
+    },
+    {
+      "file": "app/services/payment_service.rb",
+      "coverage": 60.0,
+      "churn": 6
+    },
+    {
+      "file": "app/services/cart_optimizer.rb",
+      "coverage": 71.4,
+      "churn": 6
+    }
+  ],
+  "peak_memory_mb": 82,
+  "cpu_user_seconds": 2.2,
+  "generated_at": "2026-03-26T20:08:27+00:00",
   "branch": "feature/parallel-tests",
-  "sha": "53fd874b738323787e0ff57c266964c01a3bd42f"
+  "sha": "f5b4ca9cabd09870f857ad906c7d559041691d54"
 }

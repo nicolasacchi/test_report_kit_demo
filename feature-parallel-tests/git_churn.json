@@ -1,8 +1,8 @@
 {
   "days": 90,
   "files": {
+    ".github/workflows/test-report-parallel.yml": 6,
     "Gemfile": 10,
-    ".github/workflows/test-report-parallel.yml": 5,
     "README.md": 2,
     ".github/workflows/test-report.yml": 2,
     "app/services/payment_service.rb": 6,
