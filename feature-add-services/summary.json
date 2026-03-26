@@ -31,18 +31,18 @@
       "uncovered_count": 8
     }
   ],
-  "duration_seconds": 0.239163385,
+  "duration_seconds": 0.266015243,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
   "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
-  "slowest_test_duration": 0.03,
+  "slowest_test_duration": 0.04,
   "slowest_tests": [
     {
       "description": "InventorySyncJob#perform syncs products for active pharmacy",
       "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
-      "duration": 0.03
+      "duration": 0.04
     },
     {
       "description": "Order#recalculate_total! sums order item subtotals",
@@ -60,8 +60,8 @@
       "duration": 0.02
     },
     {
-      "description": "InventorySyncJob#perform skips inactive pharmacies",
-      "file": "./spec/jobs/inventory_sync_job_spec.rb:17",
+      "description": "Order#ship! ships confirmed orders",
+      "file": "./spec/models/order_spec.rb:26",
       "duration": 0.01
     }
   ],
@@ -83,7 +83,7 @@
       "churn": 1
     }
   ],
-  "generated_at": "2026-03-26T11:39:15+00:00",
+  "generated_at": "2026-03-26T11:41:38+00:00",
   "branch": "feature/add-services",
-  "sha": "249208215c5db0ce71d372175dfe25c578aeead3"
+  "sha": "81427359fa008e9627531c3dc618bbd752d32110"
 }

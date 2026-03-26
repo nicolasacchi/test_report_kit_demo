@@ -1,10 +1,10 @@
 {
   "days": 90,
   "files": {
+    ".github/workflows/test-report.yml": 2,
     "Gemfile": 2,
     ".github/dependabot.yml": 1,
     ".github/workflows/ci.yml": 1,
-    ".github/workflows/test-report.yml": 1,
     "README.md": 1,
     "app/jobs/inventory_sync_job.rb": 1,
     "app/models/order.rb": 2,
