@@ -23,5 +23,13 @@ RSpec.describe CartOptimizer do
     end
   end
 
-  # NOT TESTING: calculate_absorption, apply_discounts, validate_availability
+  describe "#optimize with discounts" do
+    it "applies 5% discount for items over 50 EUR" do
+      products = create_list(:product, 2, price_cents: 6000)
+      pharmacies = create_list(:pharmacy, 1)
+      result = described_class.new(products, pharmacies).optimize
+      # BUG: optimize doesn't call apply_discounts — total_cost is sum of raw prices
+      expect(result[:total_cost]).to eq(11400)
+    end
+  end
 end

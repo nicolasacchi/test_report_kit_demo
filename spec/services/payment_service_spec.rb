@@ -22,5 +22,12 @@ RSpec.describe PaymentService do
     end
   end
 
-  # NOT TESTING: refund!, handle_timeout
+  describe "#refund!" do
+    it "includes a refund transaction ID" do
+      order = create(:order, :confirmed, total_cents: 5000)
+      result = described_class.new(order).refund!
+      # BUG: refund! returns {status: :refunded, amount: X} but no :transaction_id
+      expect(result[:transaction_id]).to be_present
+    end
+  end
 end

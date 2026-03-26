@@ -44,8 +44,14 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  # DELIBERATELY NOT TESTING: cancel!, cod?, handle_cod_timeout, awaiting_cod_confirmation?
-  # This creates the "low coverage" scenario for the demo
+  describe "#cancel!" do
+    it "sets cancelled_at timestamp" do
+      order = create(:order, status: "pending")
+      order.cancel!(reason: "customer request")
+      # BUG: cancelled_at is not set by cancel! — it only sets notes
+      expect(order.reload.cancelled_at).to be_present
+    end
+  end
 
   describe "#recalculate_total!" do
     it "sums order item subtotals" do
