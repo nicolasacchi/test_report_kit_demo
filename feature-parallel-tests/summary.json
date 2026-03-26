@@ -1,7 +1,7 @@
 {
-  "coverage_pct": 77.0,
+  "coverage_pct": null,
   "coverage_delta": null,
-  "branch_coverage_pct": 43.4,
+  "branch_coverage_pct": null,
   "diff_coverage_pct": null,
   "diff_coverage_passed": null,
   "diff_coverage_threshold": 90,
@@ -10,7 +10,7 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.234397727,
+  "duration_seconds": 0.23,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
@@ -24,47 +24,31 @@
       "duration": 0.03
     },
     {
-      "description": "InventorySyncJob#perform syncs products for active pharmacy",
-      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
       "duration": 0.03
     },
     {
       "description": "CartOptimizer#optimize returns the cheapest pharmacy",
       "file": "./spec/services/cart_optimizer_spec.rb:6",
-      "duration": 0.02
+      "duration": 0.03
     },
     {
-      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
-      "file": "./spec/models/order_item_spec.rb:5",
-      "duration": 0.02
+      "description": "InventorySyncJob#perform syncs products for active pharmacy",
+      "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
+      "duration": 0.01
     },
     {
-      "description": "CartOptimizer#optimize raises when no pharmacies available",
-      "file": "./spec/services/cart_optimizer_spec.rb:16",
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:51",
       "duration": 0.01
     }
   ],
-  "total_factory_creates": 67,
-  "top_risks": [
-    {
-      "file": "app/services/pricing_engine.rb",
-      "coverage": 29.2,
-      "churn": 11
-    },
-    {
-      "file": "app/services/payment_service.rb",
-      "coverage": 60.0,
-      "churn": 6
-    },
-    {
-      "file": "app/services/cart_optimizer.rb",
-      "coverage": 71.4,
-      "churn": 6
-    }
-  ],
-  "peak_memory_mb": 82,
-  "cpu_user_seconds": 2.1,
-  "generated_at": "2026-03-26T20:00:22+00:00",
+  "total_factory_creates": 134,
+  "top_risks": [],
+  "peak_memory_mb": 81,
+  "cpu_user_seconds": 4.0,
+  "generated_at": "2026-03-26T20:01:42+00:00",
   "branch": "feature/parallel-tests",
   "sha": "f7d620841d5f2407c95ffb77d58dcfe2a338acf8"
 }

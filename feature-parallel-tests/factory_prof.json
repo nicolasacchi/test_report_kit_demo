@@ -1,1 +1,36 @@
-{"total_count":67,"total_top_level_count":55,"total_time":"00:00.157","total_run_time":"00:01.501","total_uniq_factories":4,"stats":[{"name":"product","total_count":35,"top_level_count":24,"total_time":0.08243425799989268,"top_level_time":0.06535971499991433,"variations":{}},{"name":"order","total_count":15,"top_level_count":14,"total_time":0.027525107999935017,"top_level_time":0.021103566999954637,"variations":{}},{"name":"order_item","total_count":11,"top_level_count":11,"total_time":0.051386110999999346,"top_level_time":0.051386110999999346,"variations":{}},{"name":"pharmacy","total_count":6,"top_level_count":6,"total_time":0.01942594300007272,"top_level_time":0.01942594300007272,"variations":{}}]}
+{
+  "total_count": 134,
+  "total_top_level_count": 110,
+  "total_time": "0.0s",
+  "total_uniq_factories": 4,
+  "stats": [
+    {
+      "name": "product",
+      "total_count": 70,
+      "top_level_count": 48,
+      "total_time": 0.1528261440000449,
+      "top_level_time": 0.10379951200002324
+    },
+    {
+      "name": "order",
+      "total_count": 30,
+      "top_level_count": 28,
+      "total_time": 0.06825249599998529,
+      "top_level_time": 0.05127055200000541
+    },
+    {
+      "name": "order_item",
+      "total_count": 22,
+      "top_level_count": 22,
+      "total_time": 0.13592378399999916,
+      "top_level_time": 0.13592378399999916
+    },
+    {
+      "name": "pharmacy",
+      "total_count": 12,
+      "top_level_count": 12,
+      "total_time": 0.028364405999980136,
+      "top_level_time": 0.028364405999980136
+    }
+  ]
+}
