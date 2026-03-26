@@ -25,3 +25,4 @@ end
 # perf
 # factory
 # resource
+# failures tab
