@@ -27,9 +27,11 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-        bundler-cache: true
+
+    - name: Bundle install
       env:
         BUNDLE_GITHUB__COM: x-access-token:${{ github.token }}
+      run: bundle install
 
     - run: bundle exec rails db:create db:migrate
       env:
@@ -78,9 +80,11 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-        bundler-cache: true
+
+    - name: Bundle install
       env:
         BUNDLE_GITHUB__COM: x-access-token:${{ github.token }}
+      run: bundle install
 
     - run: bundle exec rails db:create db:migrate
       env:
