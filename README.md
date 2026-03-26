@@ -9,6 +9,7 @@ Demo Rails app showcasing [test_report_kit](https://github.com/nicolasacchi/test
 | `main` | [View Report](https://nicolasacchi.github.io/test_report_kit_demo/main/) | Full coverage report (all passing) |
 | `feature/add-services` | [View Report](https://nicolasacchi.github.io/test_report_kit_demo/feature-add-services/) | Feature branch with partial diff coverage |
 | `feature/failing-tests` | [View Report](https://nicolasacchi.github.io/test_report_kit_demo/feature-failing-tests/) | 4 failing tests with error details |
+| `feature/parallel-tests` | [View Report](https://nicolasacchi.github.io/test_report_kit_demo/feature-parallel-tests/) | Parallel CI (2 nodes) with merge + Parallel tab |
 
 ## What the Dashboard Shows
 
