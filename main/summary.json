@@ -10,28 +10,28 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.236152082,
+  "duration_seconds": 0.235393745,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
   "pending_examples": 0,
-  "slowest_test_name": "InventorySyncJob#perform syncs products for active pharmacy",
+  "slowest_test_name": "ShippingCalculator#calculate adds weight surcharge for large orders",
   "slowest_test_duration": 0.03,
   "slowest_tests": [
+    {
+      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
+      "file": "./spec/services/shipping_calculator_spec.rb:26",
+      "duration": 0.03
+    },
     {
       "description": "InventorySyncJob#perform syncs products for active pharmacy",
       "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
       "duration": 0.03
     },
     {
-      "description": "Order#recalculate_total! sums order item subtotals",
-      "file": "./spec/models/order_spec.rb:51",
-      "duration": 0.03
-    },
-    {
-      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
-      "file": "./spec/services/shipping_calculator_spec.rb:26",
-      "duration": 0.03
+      "description": "CartOptimizer#optimize returns the cheapest pharmacy",
+      "file": "./spec/services/cart_optimizer_spec.rb:6",
+      "duration": 0.02
     },
     {
       "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
@@ -39,8 +39,8 @@
       "duration": 0.02
     },
     {
-      "description": "InventorySyncJob#perform skips inactive pharmacies",
-      "file": "./spec/jobs/inventory_sync_job_spec.rb:17",
+      "description": "CartOptimizer#optimize raises when no pharmacies available",
+      "file": "./spec/services/cart_optimizer_spec.rb:16",
       "duration": 0.01
     }
   ],
@@ -62,9 +62,9 @@
       "churn": 6
     }
   ],
-  "peak_memory_mb": 80,
+  "peak_memory_mb": 81,
   "cpu_user_seconds": 2.1,
-  "generated_at": "2026-03-26T14:17:18+00:00",
+  "generated_at": "2026-03-26T14:18:44+00:00",
   "branch": "main",
-  "sha": "9a8ce21cbdef8394d7a38fd2386fc46a9b2db5c3"
+  "sha": "6dfb0704f9244bc4b0870567d2f635aee5609317"
 }

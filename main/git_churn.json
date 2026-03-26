@@ -1,6 +1,7 @@
 {
   "days": 90,
   "files": {
+    "README.md": 2,
     "Gemfile": 9,
     ".github/workflows/test-report.yml": 2,
     "app/services/payment_service.rb": 6,
@@ -9,7 +10,6 @@
     ".github/dependabot.yml": 1,
     ".github/workflows/ci.yml": 1,
     ".rubocop.yml": 1,
-    "README.md": 1,
     "db/seeds.rb": 1,
     "test/controllers/.keep": 1,
     "test/fixtures/files/.keep": 1,
