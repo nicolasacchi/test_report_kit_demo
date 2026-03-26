@@ -1,8 +1,54 @@
 {
   "event": "factory.create",
-  "total_time": null,
-  "total_run_time": null,
-  "total_percentage": null,
-  "total_events": 0,
-  "suites": []
+  "total_time": "00:00.157",
+  "total_run_time": "00:00.233",
+  "total_percentage": 67.2,
+  "total_events": 55,
+  "suites": [
+    {
+      "description": "EventProf results for factory.create\n\nTotal time: 00:00.157 of 00:00.233",
+      "location": "67.2%)\nTotal events: 55\n\nTop 5 slowest suites (by time):\n\nInventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3",
+      "time": "00:00.038",
+      "event_count": 12,
+      "example_count": 2,
+      "run_time": "00:00.044",
+      "percentage": 86.82
+    },
+    {
+      "description": "Order",
+      "location": "./spec/models/order_spec.rb:3",
+      "time": "00:00.033",
+      "event_count": 7,
+      "example_count": 7,
+      "run_time": "00:00.064",
+      "percentage": 51.24
+    },
+    {
+      "description": "ShippingCalculator",
+      "location": "./spec/services/shipping_calculator_spec.rb:3",
+      "time": "00:00.030",
+      "event_count": 12,
+      "example_count": 5,
+      "run_time": "00:00.036",
+      "percentage": 84.17
+    },
+    {
+      "description": "OrderItem",
+      "location": "./spec/models/order_item_spec.rb:3",
+      "time": "00:00.022",
+      "event_count": 3,
+      "example_count": 2,
+      "run_time": "00:00.025",
+      "percentage": 89.69
+    },
+    {
+      "description": "Product",
+      "location": "./spec/models/product_spec.rb:3",
+      "time": "00:00.014",
+      "event_count": 9,
+      "example_count": 13,
+      "run_time": "00:00.030",
+      "percentage": 47.88
+    }
+  ]
 }
