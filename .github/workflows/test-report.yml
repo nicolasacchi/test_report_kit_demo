@@ -82,6 +82,9 @@ jobs:
     if: github.event_name == 'push'
     needs: test
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -91,10 +94,20 @@ jobs:
         with:
           ref: gh-pages
           path: site
+          token: ${{ github.token }}
         continue-on-error: true
 
       - name: Init site dir
-        run: mkdir -p site
+        run: |
+          if [ ! -d site/.git ]; then
+            mkdir -p site
+            cd site
+            git init -b gh-pages
+            git config user.email "actions@github.com"
+            git config user.name "GitHub Actions"
+            git commit --allow-empty -m "Init gh-pages"
+            git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          fi
 
       - uses: actions/download-artifact@v4
         with:
@@ -133,7 +146,6 @@ jobs:
           <ul class="list" id="reports"></ul>
           <script>
           HTMLEOF
-          # Build JS array from actual subdirectories
           echo "const reports = [" >> site/index.html
           for dir in site/*/; do
             [ -f "${dir}index.html" ] && echo "  '$(basename $dir)'," >> site/index.html
@@ -152,14 +164,11 @@ jobs:
       - name: Push to gh-pages
         run: |
           cd site
-          rm -rf .git
-          git init -b gh-pages
-          git add -A
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git commit -m "Deploy report for ${{ github.ref_name }}"
-          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          git push -f origin gh-pages
+          git add -A
+          git diff --staged --quiet || git commit -m "Deploy report for ${{ github.ref_name }}"
+          git push origin gh-pages
 
       - uses: actions/upload-pages-artifact@v3
         with:
