@@ -1,15 +1,15 @@
 EventProf results for factory.create
 
-Total time: 00:00.186 of 00:00.287 (64.77%)
+Total time: 00:00.178 of 00:00.252 (70.76%)
 Total events: 61
 
 Top 5 slowest suites (by time):
 
-InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.045 (12 / 2) of 00:00.052 (87.02%)
-Order (./spec/models/order_spec.rb:3) – 00:00.039 (8 / 8) of 00:00.085 (45.78%)
-ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.031 (12 / 5) of 00:00.037 (82.99%)
-OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.028 (3 / 2) of 00:00.033 (84.67%)
-CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.017 (11 / 3) of 00:00.024 (68.56%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.059 (3 / 2) of 00:00.066 (88.49%)
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.033 (12 / 2) of 00:00.039 (84.07%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.029 (12 / 5) of 00:00.035 (82.65%)
+CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.016 (11 / 3) of 00:00.024 (68.59%)
+Order (./spec/models/order_spec.rb:3) – 00:00.016 (8 / 8) of 00:00.034 (47.36%)
 
 
 

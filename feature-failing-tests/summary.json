@@ -10,38 +10,38 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.289313553,
+  "duration_seconds": 0.255140109,
   "duration_formatted": "0s",
   "total_examples": 44,
   "failed_examples": 4,
   "pending_examples": 0,
-  "slowest_test_name": "Order#cancel! sets cancelled_at timestamp",
-  "slowest_test_duration": 0.01,
+  "slowest_test_name": "OrderItem#subtotal_cents multiplies quantity by unit price",
+  "slowest_test_duration": 0.05,
   "slowest_tests": [
     {
-      "description": "Order#cancel! sets cancelled_at timestamp",
-      "file": "./spec/models/order_spec.rb:48",
-      "duration": 0.01
-    },
-    {
-      "description": "CartOptimizer#optimize with discounts applies 5% discount for items over 50 EUR",
-      "file": "./spec/services/cart_optimizer_spec.rb:27",
-      "duration": 0.01
-    },
-    {
-      "description": "PricingEngine#calculate does not apply volume discount for low stock",
-      "file": "./spec/services/pricing_engine_spec.rb:5",
-      "duration": 0.0
-    },
-    {
-      "description": "PaymentService#refund! includes a refund transaction ID",
-      "file": "./spec/services/payment_service_spec.rb:26",
-      "duration": 0.0
+      "description": "OrderItem#subtotal_cents multiplies quantity by unit price",
+      "file": "./spec/models/order_item_spec.rb:5",
+      "duration": 0.05
     },
     {
       "description": "InventorySyncJob#perform syncs products for active pharmacy",
       "file": "./spec/jobs/inventory_sync_job_spec.rb:13",
-      "duration": 0.04
+      "duration": 0.03
+    },
+    {
+      "description": "ShippingCalculator#calculate adds weight surcharge for large orders",
+      "file": "./spec/services/shipping_calculator_spec.rb:26",
+      "duration": 0.03
+    },
+    {
+      "description": "OrderItem callback recalculates order total on save",
+      "file": "./spec/models/order_item_spec.rb:13",
+      "duration": 0.02
+    },
+    {
+      "description": "Order#recalculate_total! sums order item subtotals",
+      "file": "./spec/models/order_spec.rb:57",
+      "duration": 0.01
     }
   ],
   "total_factory_creates": 73,
@@ -62,9 +62,9 @@
       "churn": 6
     }
   ],
-  "peak_memory_mb": 81,
-  "cpu_user_seconds": 2.4,
-  "generated_at": "2026-03-26T14:17:11+00:00",
+  "peak_memory_mb": 82,
+  "cpu_user_seconds": 2.2,
+  "generated_at": "2026-03-26T14:38:51+00:00",
   "branch": "feature/failing-tests",
-  "sha": "d95c474f4ce1530494d805d700378da2faa0a630"
+  "sha": "363253a8e5b12854b1ffa95de64702704c5ec669"
 }

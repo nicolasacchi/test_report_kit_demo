@@ -3,34 +3,34 @@
 [TEST PROF INFO] EventProf enabled (factory.create)
 ..........F......................F...FF.....[TEST PROF INFO] RSpecDissect report
 
-Total time: 00:00.276
-Total setup time: 00:00.050
+Total time: 00:00.246
+Total setup time: 00:00.037
 
 
 Top 5 slowest suites by setup time:
 
-InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.044[22m of 00:00.052 / 2 (before: 00:00.037, before let: 00:00.000, lazy let: 00:00.007)
- ↳ pharmacy – 00:00.007 (1)
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.032[22m of 00:00.039 / 2 (before: 00:00.026, before let: 00:00.000, lazy let: 00:00.006)
+ ↳ pharmacy – 00:00.006 (1)
 
-ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.004[22m of 00:00.037 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.004)
- ↳ order – 00:00.004 (3)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.003[22m of 00:00.035 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.003)
+ ↳ order – 00:00.003 (3)
 
-Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.030 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
-Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.079 / 8 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
-Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.008 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.028 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.033 / 8 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.007 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
 
 [TEST PROF INFO] EventProf results for factory.create
 
-Total time: 00:00.186 of 00:00.287 (64.77%)
+Total time: 00:00.178 of 00:00.252 (70.76%)
 Total events: 61
 
 Top 5 slowest suites (by time):
 
-InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.045 (12 / 2) of 00:00.052 (87.02%)
-Order (./spec/models/order_spec.rb:3) – 00:00.039 (8 / 8) of 00:00.085 (45.78%)
-ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.031 (12 / 5) of 00:00.037 (82.99%)
-OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.028 (3 / 2) of 00:00.033 (84.67%)
-CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.017 (11 / 3) of 00:00.024 (68.56%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.059 (3 / 2) of 00:00.066 (88.49%)
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.033 (12 / 2) of 00:00.039 (84.07%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.029 (12 / 5) of 00:00.035 (82.65%)
+CartOptimizer (./spec/services/cart_optimizer_spec.rb:3) – 00:00.016 (11 / 3) of 00:00.024 (68.59%)
+Order (./spec/models/order_spec.rb:3) – 00:00.016 (8 / 8) of 00:00.034 (47.36%)
 
 
 
@@ -66,7 +66,7 @@ Failures:
        (compared using ==)
      # ./spec/services/pricing_engine_spec.rb:10:in `block (3 levels) in <top (required)>'
 
-Finished in 0.28931 seconds (files took 2.11 seconds to load)
+Finished in 0.25514 seconds (files took 1.89 seconds to load)
 44 examples, 4 failures
 
 Failed examples:
