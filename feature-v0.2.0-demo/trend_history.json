@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2026-03-27T13:22:03+00:00",
+    "branch": "feature/v0.2.0-demo",
+    "sha": "6cee9020a0e1df7eab488ed6baa38002d318df4c",
+    "coverage_pct": 77.0,
+    "branch_coverage_pct": 43.4,
+    "diff_coverage_pct": null,
+    "duration_seconds": 0.233536245,
+    "total_examples": 40,
+    "failed_examples": 0,
+    "total_factory_creates": 67,
+    "peak_memory_mb": 82
+  }
+]

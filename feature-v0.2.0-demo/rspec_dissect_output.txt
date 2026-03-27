@@ -1,0 +1,31 @@
+RSpecDissect report
+
+Total time: 00:00.225
+Total setup time: 00:00.042
+
+
+Top 5 slowest suites by setup time:
+
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – [1m00:00.037[22m of 00:00.043 / 2 (before: 00:00.031, before let: 00:00.000, lazy let: 00:00.005)
+ ↳ pharmacy – 00:00.005 (1)
+
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – [1m00:00.003[22m of 00:00.034 / 5 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.003)
+ ↳ order – 00:00.003 (3)
+
+Pharmacy (./spec/models/pharmacy_spec.rb:3) – [1m00:00.000[22m of 00:00.010 / 6 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Product (./spec/models/product_spec.rb:3) – [1m00:00.000[22m of 00:00.029 / 13 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+Order (./spec/models/order_spec.rb:3) – [1m00:00.000[22m of 00:00.063 / 7 (before: 00:00.000, before let: 00:00.000, lazy let: 00:00.000)
+
+[TEST PROF INFO] EventProf results for factory.create
+
+Total time: 00:00.161 of 00:00.231 (69.66%)
+Total events: 55
+
+Top 5 slowest suites (by time):
+
+Order (./spec/models/order_spec.rb:3) – 00:00.038 (7 / 7) of 00:00.065 (59.29%)
+InventorySyncJob (./spec/jobs/inventory_sync_job_spec.rb:3) – 00:00.038 (12 / 2) of 00:00.044 (87.21%)
+ShippingCalculator (./spec/services/shipping_calculator_spec.rb:3) – 00:00.029 (12 / 5) of 00:00.035 (84.25%)
+OrderItem (./spec/models/order_item_spec.rb:3) – 00:00.021 (3 / 2) of 00:00.024 (89.26%)
+Product (./spec/models/product_spec.rb:3) – 00:00.014 (9 / 13) of 00:00.030 (47.47%)
+
