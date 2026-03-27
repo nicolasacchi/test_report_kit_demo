@@ -13,16 +13,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "test_report_kit", github: "nicolasacchi/test_report_kit", branch: "main"
+  gem "test_report_kit", github: "nicolasacchi/test_report_kit", branch: "feature/v0.2.0"
   gem "simplecov", require: false
   gem "simplecov-json", require: false
   gem "test-prof", "~> 1.0"
 end
-
-# coverage viewer
-# syntax fix
-# ux
-# perf
-# factory
-# resource
-# eventprof fix
