@@ -10,7 +10,7 @@
   "diff_covered_lines": null,
   "diff_uncovered_lines": null,
   "diff_uncovered_files": [],
-  "duration_seconds": 0.251220597,
+  "duration_seconds": 0.249461888,
   "duration_formatted": "0s",
   "total_examples": 40,
   "failed_examples": 0,
@@ -64,7 +64,7 @@
   ],
   "peak_memory_mb": 81,
   "cpu_user_seconds": 2.1,
-  "generated_at": "2026-03-27T13:22:40+00:00",
+  "generated_at": "2026-03-27T13:22:36+00:00",
   "branch": "feature/v0.2.0-demo",
   "sha": "6cee9020a0e1df7eab488ed6baa38002d318df4c"
 }
