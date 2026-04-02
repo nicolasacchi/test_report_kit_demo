@@ -109,7 +109,7 @@ jobs:
             git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           fi
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: test-report
           path: report
