@@ -170,7 +170,7 @@ jobs:
           git diff --staged --quiet || git commit -m "Deploy report for ${{ github.ref_name }}"
           git push origin gh-pages
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
